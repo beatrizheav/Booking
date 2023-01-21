@@ -5,6 +5,7 @@ import { containers, graphics,controls } from '../styles/Screens/booking'
 import BookingTitle from '../components/BookingTitle'
 import FlightInfo from '../components/FlightInfo'
 import CustomButtom from '../components/CustomButton'
+import SelectMenu from '../components/SelectMenu'
 
 const Booking = () => {
   return (
@@ -19,6 +20,8 @@ const Booking = () => {
         <FlightInfo />
         <BookingTitle text={'Where Are You Now?'} />
         <CustomButtom style={controls.button} text='Next' />
+        <SelectMenu/>
+
       </View>
     </View>
   )
