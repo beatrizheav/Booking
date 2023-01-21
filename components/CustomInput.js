@@ -1,5 +1,5 @@
 import { TextInput, View, TouchableOpacity } from 'react-native'
-import { graphics, controls, containers } from '../styles/InputStyle'
+import { graphics, controls, containers } from '../styles/Components/input'
 import { useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 

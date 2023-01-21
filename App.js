@@ -5,9 +5,14 @@ import {
   ScrollView,
 } from 'react-native'
 import Booking from './screens/Booking'
+import Login from './screens/Login'
+import Signup from './screens/Signup'
+
 
 export default function App() {
   return (
-    <Booking/>
+    // <Booking/>
+    // <Login/>
+    <Signup/>
   )
 }

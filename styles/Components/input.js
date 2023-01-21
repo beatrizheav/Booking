@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { ColorsTheme } from './ColorsTheme';
+import { ColorsTheme } from '../colorsTheme';
 
 export const graphics = StyleSheet.create({
   icon: {

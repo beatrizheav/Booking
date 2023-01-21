@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import { buttons, texts, graphics, containers } from '../styles/ButtonStyle.js'
+import { buttons, texts, graphics, containers } from '../styles/Components/button.js'
 
 const CustomButton = ({ text, disabled, icon }) => {
   return (

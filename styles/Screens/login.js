@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ColorsTheme } from './ColorsTheme'
+import { ColorsTheme } from '../colorsTheme'
 
 export const controls = StyleSheet.create({
   check: {

@@ -2,7 +2,7 @@ import {
   Text,
   View
 } from 'react-native'
-import { texts } from '../styles/BookingTitleStyle'
+import { texts } from '../styles/Components/bookingTitle'
 
 const BookingTitle = ({text}) => {
   return(

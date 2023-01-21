@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import { Formik } from 'formik'
 import { CustomInput } from '../components/CustomInput'
-import { controls, containers, texts } from '../styles/LoginStyle.js'
+import { controls, containers, texts } from '../styles/Screens/login.js'
 import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
 

@@ -3,7 +3,7 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
-import { texts } from '../styles/UnderlinedStyle'
+import { texts } from '../styles/Components/underlined'
 
 const CustomUnderlined = ({ text,color }) => {
   return (
