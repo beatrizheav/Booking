@@ -31,11 +31,12 @@ export default function SelectMenu () {
         animationType='slide'
         transparent={true}
         visible={modalVisible}
+      
         onRequestClose={() => {
           setModalVisible(!modalVisible)
         }}
       >
-        <View>
+        <View style={containers.modalMainContainer}>
           <View style={containers.modalContainer}>
             <ScrollView>
               {data.map(country => {

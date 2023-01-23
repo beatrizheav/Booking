@@ -8,7 +8,8 @@ export const texts = StyleSheet.create({
     color: 'grey'
   },
   countriesListText: {
-    color: 'grey'
+    color: 'grey',
+    marginLeft:10
   }
 })
 
@@ -24,7 +25,7 @@ export const controls = StyleSheet.create({
 
 export const containers = StyleSheet.create({
   selectContainer: {
-    //backgroundColor:'blue',
+   
     marginTop: 10,
     height: '24%',
     borderBottomWidth: 1,
@@ -33,9 +34,17 @@ export const containers = StyleSheet.create({
     justifyContent: 'center'
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#E5E7EB',
     width: '85%',
     alignSelf: 'center',
-    height: '60%'
+    height: '20%',
+    position:'absolute',
+    marginTop:'100%',
+    borderRadius:10
+  },
+  modalMainContainer: {
+    // backgroundColor: 'red',
+    flex: 1,
+    position: 'relative'
   }
 })
