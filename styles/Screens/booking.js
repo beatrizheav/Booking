@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ColorsTheme } from '../colorsTheme'
+import { colorsTheme } from '../colorsTheme'
 
 export const containers = StyleSheet.create({
   main: {
@@ -15,13 +15,13 @@ export const containers = StyleSheet.create({
     alignSelf: 'center'
   },
   backIcon: {
-    color: ColorsTheme.primaryColor
+    color: colorsTheme.primaryColor
   }
 })
 
 export const graphics = StyleSheet.create({
   backIcon: {
-    color: ColorsTheme.primaryColor,
+    color: colorsTheme.primaryColor,
     //backgroundColor: 'black',
     width: '10%',
 
@@ -31,9 +31,6 @@ export const graphics = StyleSheet.create({
 
 export const controls = StyleSheet.create({
     button: {
-      //color: ColorsTheme.primaryColor,
-      //backgroundColor: 'black',
-      //width: '10%',
       alignSelf:'flex-end'
   
     }

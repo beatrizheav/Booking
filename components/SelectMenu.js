@@ -3,15 +3,17 @@ import { Text, View, TouchableOpacity, Modal, ScrollView } from 'react-native'
 import { containers, texts, controls } from '../styles/Components/selectMenu'
 import data from '../countries2.json'
 
-export default function SelectMenu () {
+export default function SelectMenu() {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState('')
 
-  const handleOnPress=(country,capital)=>{
+  const handleOnPress = (country, capital,code) => {
     setModalVisible(false)
     setSelectedDestination({
-        country:country,
-        capital:capital})
+      country: country,
+      capital: capital,
+      code: code
+    })
   }
 
   return (
@@ -31,7 +33,7 @@ export default function SelectMenu () {
         animationType='slide'
         transparent={true}
         visible={modalVisible}
-      
+
         onRequestClose={() => {
           setModalVisible(!modalVisible)
         }}
@@ -42,9 +44,10 @@ export default function SelectMenu () {
               {data.map(country => {
                 return (
                   <TouchableOpacity
+                    key={country.code_3}
                     style={controls.countriesTouchable}
-                    onPress={() => handleOnPress(country.name_en,country.capital_en)}
-                
+                    onPress={() => handleOnPress(country.name_en, country.capital_en,country.code_3)}
+
                   >
                     <Text style={texts.countriesListText}>
                       {country.name_en}, {country.capital_en}

@@ -1,6 +1,5 @@
 import {
   Text,
-  View
 } from 'react-native'
 import { texts } from '../styles/Components/bookingTitle'
 

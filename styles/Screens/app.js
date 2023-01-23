@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ColorsTheme } from '../ColorsTheme'
+import { colorsTheme } from '../colorsTheme'
 
 export const controls = StyleSheet.create({
   check: {
@@ -47,28 +47,28 @@ export const texts = StyleSheet.create({
   title: {
     fontSize: 23,
     fontWeight: 'bold',
-    color: ColorsTheme.primaryColor
+    color: colorsTheme.primaryColor
   },
   titlesText: {
     fontSize: 16,
-    color: ColorsTheme.gray,
+    color: colorsTheme.gray,
     marginTop: 12
   },
   warningPassword: {
-    color: ColorsTheme.gray,
+    color: colorsTheme.gray,
     fontSize: 11,
     marginTop: 10,
     marginBottom: 20
   },
   textCheck: {
     marginVertical: 10,
-    color: ColorsTheme.gray,
+    color: colorsTheme.gray,
     fontSize: 15
   },
   accountText: {
     fontSize: 18,
     textAlign: 'center',
-    color: ColorsTheme.gray,
+    color: colorsTheme.gray,
     marginVertical: 8
   },
   asterisk: {

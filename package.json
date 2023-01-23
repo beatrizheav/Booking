@@ -6,18 +6,32 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint",
+    "test": "jest --verbose"
   },
   "dependencies": {
     "expo": "~47.0.12",
+    "expo-checkbox": "~2.2.2",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-calendario": "^3.3.2",
     "react-native-formik": "^1.7.8",
-    "expo-checkbox": "~2.2.2"
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "eslint": "^8.32.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.1"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "testEnvironment": "node"
+  }
 }

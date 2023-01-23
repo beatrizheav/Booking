@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { ColorsTheme } from '../colorsTheme';
+import { colorsTheme } from '../colorsTheme';
 
 export const graphics = StyleSheet.create({
   icon: {
@@ -8,10 +8,10 @@ export const graphics = StyleSheet.create({
     position: 'absolute'
   },
   iconActive: {
-    color: ColorsTheme.primaryColor
+    color: colorsTheme.primaryColor
   },
   iconInactive: {
-    color: ColorsTheme.gray
+    color: colorsTheme.gray
   }
 })
 
@@ -28,10 +28,10 @@ export const controls = StyleSheet.create({
     paddingLeft: 5
   },
   inputActive: {
-    borderColor: ColorsTheme.primaryColor
+    borderColor: colorsTheme.primaryColor
   },
   inputInactive: {
-    borderColor: ColorsTheme.gray
+    borderColor: colorsTheme.gray
   }
 })
 
