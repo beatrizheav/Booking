@@ -336,18 +336,6 @@
     "tld": ".bo"
   },
   {
-    "name_en": "Bonaire",
-    "name_es": "Bonaire",
-    "continent_en": "North America",
-    "continent_es": "América del Norte",
-    "capital_en": "Kralendijk",
-    "capital_es": "Kralendijk",
-    "dial_code": "+599",
-    "code_2": "BQ",
-    "code_3": "BES",
-    "tld": ".bq"
-  },
-  {
     "name_en": "Bosnia and Herzegovina",
     "name_es": "Bosnia y Herzegovina",
     "continent_en": "Europe",
@@ -2228,7 +2216,7 @@
     "capital_es": "Jamestown",
     "dial_code": "+290",
     "code_2": "SH",
-    "code_3": "SHN",
+    "code_3": "SNH",
     "tld": ".sh"
   },
   {
@@ -2398,18 +2386,6 @@
     "code_2": "SG",
     "code_3": "SGP",
     "tld": ".sg"
-  },
-  {
-    "name_en": "Sint Eustatius",
-    "name_es": "San Eustaquio",
-    "continent_en": "North America",
-    "continent_es": "América del Norte",
-    "capital_en": "Philipsburg",
-    "capital_es": "Philipsburg",
-    "dial_code": "+599",
-    "code_2": "BQ",
-    "code_3": "BES",
-    "tld": ".bq"
   },
   {
     "name_en": "Sint Maarten",

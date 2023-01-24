@@ -4,14 +4,10 @@ import {
   View,
   ScrollView,
 } from 'react-native'
-import Booking from './screens/Booking'
-import Login from './screens/Login'
-import Signup from './screens/Signup'
+import MainStack from './navigation/MainStack'
 
 export default function App() {
   return (
-    <Booking/>
-    //<Login/>
-    //<Signup/>
+    <MainStack/>
   )
 }

@@ -11,7 +11,7 @@ import { controls, containers, texts } from '../styles/Screens/login.js'
 import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
 
-export default function App() {
+const SignUp = () => {
   const [isChecked, setChecked] = useState(false)
   const [isChecked2, setChecked2] = useState(false)
   const [inputText, setInputText] = useState('')
@@ -112,3 +112,5 @@ export default function App() {
     </View>
   )
 }
+
+export default SignUp;
