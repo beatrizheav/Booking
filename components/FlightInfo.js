@@ -1,24 +1,21 @@
-import { useState, useEffect  } from 'react'
+import { useState, useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { containers, texts, graphics } from '../styles/Components/flightInfo'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useSelector } from 'react-redux'
 
 const FlightInfo = () => {
-
   const flightBooking = useSelector(state => state.flightInfo)
+  console.log('flightBooking', flightBooking[0].destination.country)
 
-  // console.log("lergnth",state.flightInfo.length)
-  flightBooking[0].destination.country
-  ? console.log("flightBooking", flightBooking.destination)
-  : console.log('NADA :(')
+  
 
   return (
     <View style={containers.main}>
       <View style={containers.infoContainer}>
         <View style={containers.placeContainerL}>
-          <Text style={texts.cityText}>BEG</Text>
-          <Text style={texts.countryText}>Serbia</Text>
+          <Text style={texts.cityText}>{flightBooking[0].destination.code}</Text>
+          <Text style={texts.countryText}>{flightBooking[0].destination.country}</Text>
         </View>
         <View style={containers.iconContainer}>
           <Ionicons
