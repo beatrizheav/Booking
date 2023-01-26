@@ -35,7 +35,6 @@ const initialState = [
 export const flightInformationReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_DESTINATION':
-      console.log(action.payload)
       const newState = [...state]
 
       newState[0].destination.country = action.payload.country

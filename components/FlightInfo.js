@@ -6,9 +6,6 @@ import { useSelector } from 'react-redux'
 
 const FlightInfo = () => {
   const flightBooking = useSelector(state => state.flightInfo)
-  console.log('flightBooking', flightBooking[0].destination.country)
-
-  
 
   return (
     <View style={containers.main}>

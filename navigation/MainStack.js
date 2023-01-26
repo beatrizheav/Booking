@@ -1,5 +1,4 @@
 import React from 'react';
-
 import SignUp from '../screens/Signup';
 import Login from '../screens/Login';
 import Booking from '../screens/Booking';
@@ -15,8 +14,8 @@ const MainStack = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* <Stack.Screen name="Signup" component={SignUp} />
-          <Stack.Screen name="Login" component={Login} /> */}
+          <Stack.Screen name="Signup" component={SignUp} />
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Booking" component={Booking} />
         </Stack.Navigator>
       </NavigationContainer>

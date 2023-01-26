@@ -10,8 +10,6 @@ import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
 
 const Login = () => {
-  const [isChecked, setChecked] = useState(false)
-  const [isChecked2, setChecked2] = useState(false)
   const [inputText, setInputText] = useState('')
 
   return (
