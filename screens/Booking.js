@@ -7,6 +7,7 @@ import FlightInfo from '../components/FlightInfo'
 import CustomButtom from '../components/CustomButton'
 import SelectMenu from '../components/SelectMenu'
 import { useNavigation } from "@react-navigation/native";
+import Passengers from '../components/Passengers'
 
 
 const Booking = () => {
@@ -26,9 +27,10 @@ const Booking = () => {
           />
         </TouchableOpacity>
         <FlightInfo />
-        <BookingTitle text={'Where Are You Now?'} />
+        {/* <BookingTitle text={'Where Are You Now?'} />
         <CustomButtom style={controls.button} text='Next' />
-        <SelectMenu />
+        <SelectMenu /> */}
+        <Passengers/>
 
       </View>
     </View>
