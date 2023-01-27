@@ -3,8 +3,9 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { containers, graphics, controls } from '../styles/Screens/booking'
 import FlightInfo from '../components/FlightInfo'
 import CustomButtom from '../components/CustomButton'
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native"
 import Passengers from '../components/Passengers'
+import DateCalendar from '../components/DateCalendar'
 import Origin from '../components/Origin'
 import Destination from '../components/Destination'
 
@@ -25,11 +26,13 @@ const Booking = () => {
             style={graphics.backIcon}
           />
         </TouchableOpacity>
-        <FlightInfo />
-        <Origin />
-        <Destination />
-        <Passengers/>
+        {/* <FlightInfo /> */}
+        {/* <Origin /> */}
+        {/* <Destination /> */}
+        {/* <Passengers/> */}
+        <DateCalendar/>
         <CustomButtom style={controls.button} text='Next' />
+        
       </View>
     </View>
   )
