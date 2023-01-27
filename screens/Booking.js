@@ -1,18 +1,17 @@
-import { useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { containers, graphics, controls } from '../styles/Screens/booking'
-import BookingTitle from '../components/BookingTitle'
 import FlightInfo from '../components/FlightInfo'
 import CustomButtom from '../components/CustomButton'
-import SelectMenu from '../components/SelectMenu'
 import { useNavigation } from "@react-navigation/native";
 import Passengers from '../components/Passengers'
-
+import Origin from '../components/Origin'
+import Destination from '../components/Destination'
 
 const Booking = () => {
   const navigation = useNavigation();
   return (
+
     <View style={containers.main}>
       <View style={containers.container}>
         <TouchableOpacity
@@ -27,11 +26,10 @@ const Booking = () => {
           />
         </TouchableOpacity>
         <FlightInfo />
-        {/* <BookingTitle text={'Where Are You Now?'} />
-        <CustomButtom style={controls.button} text='Next' />
-        <SelectMenu /> */}
+        <Origin />
+        <Destination />
         <Passengers/>
-
+        <CustomButtom style={controls.button} text='Next' />
       </View>
     </View>
   )

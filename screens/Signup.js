@@ -10,8 +10,11 @@ import { CustomInput } from '../components/CustomInput'
 import { controls, containers, texts } from '../styles/Screens/login.js'
 import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
+import { useNavigation } from "@react-navigation/native";
 
 const SignUp = () => {
+  const navigation = useNavigation();
+
   const [isChecked, setChecked] = useState(false)
   const [isChecked2, setChecked2] = useState(false)
   const [inputText, setInputText] = useState('')
@@ -85,15 +88,12 @@ const SignUp = () => {
               </View>
 
               <View style={containers.buttonsContainer}>
-                {isChecked && isChecked2 === true ?
-                  <CustomButton text='Sign Up' disabled={false} icon={false} /> :
+                {isChecked  === true ?
+                  <CustomButton text='Sign Up' disabled={false} icon={false} handlePress={()=>navigation.navigate('Booking')} /> :
                   <CustomButton text='Sign Up' disabled={true} icon={false} />
                 }
                 <Text style={texts.accountText}>or</Text>
-                {isChecked && isChecked2 === true ?
-                  <CustomButton text='Sign Up with Google' disabled={false} icon={true} /> :
-                  <CustomButton text='Sign Up with Google' disabled={true} icon={true} />
-                }
+                  <CustomButton text='Sign Up with Google' disabled={false} icon={true} handlePress={()=>navigation.navigate('Booking')}/>
 
                 <View style={containers.footerContainer}>
                   <Text style={texts.accountText}>

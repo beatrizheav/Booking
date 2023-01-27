@@ -8,9 +8,12 @@ import { CustomInput } from '../components/CustomInput'
 import { controls, containers, texts } from '../styles/Screens/login.js'
 import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
+import { useNavigation } from "@react-navigation/native";
+
 
 const Login = () => {
   const [inputText, setInputText] = useState('')
+  const navigation = useNavigation();
 
   return (
     <View style={containers.container}>
@@ -44,7 +47,7 @@ const Login = () => {
             </Text>
 
             <View style={containers.buttonsContainer}>
-              <CustomButton text='Sign In' disabled={false} icon={false} />
+              <CustomButton text='Sign In' disabled={false} icon={false} handlePress={()=>navigation.navigate('Booking')}/>
               <Text style={texts.accountText}>or</Text>
               <CustomButton text='Sign In with Google' disabled={false} icon={true} />
 

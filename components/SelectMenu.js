@@ -16,7 +16,7 @@ export default function SelectMenu() {
       code: code
     })
     store.dispatch({
-      type: 'ADD_DESTINATION',
+      type: 'ADD_ORIGIN',
       payload: {
         country: country,
         capital: capital,
