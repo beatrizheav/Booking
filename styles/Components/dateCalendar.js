@@ -7,5 +7,8 @@ export const containers = StyleSheet.create({
     mainContainer: {
         flex: 1,
         justifyContent: 'center',
+    },
+    calendarContainer: {
+        paddingTop: '5%'
     }
 })

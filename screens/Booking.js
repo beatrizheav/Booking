@@ -26,7 +26,7 @@ const Booking = () => {
             style={graphics.backIcon}
           />
         </TouchableOpacity>
-        {/* <FlightInfo /> */}
+        <FlightInfo />
         {/* <Origin /> */}
         {/* <Destination /> */}
         {/* <Passengers/> */}
