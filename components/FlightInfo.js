@@ -29,7 +29,7 @@ const FlightInfo = () => {
             </View>
           </View>
           <View style={containers.datePassengersContainer}>
-            <Text style={texts.dateText}>September 3, 2020</Text>
+            <Text style={texts.dateText}>{flightBooking[0].date}</Text>
             {flightBooking[0].passengers === '' ? ('') : (
               <Text style={texts.dateText}>{flightBooking[0].passengers} passengers</Text>
             )}

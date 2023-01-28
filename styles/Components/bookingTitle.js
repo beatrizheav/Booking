@@ -8,6 +8,7 @@ export const texts = StyleSheet.create({
     fontSize: 35,
     paddingTop: '20%',
     paddingRight: 26,
+    width: '100%'
   }
 })
 

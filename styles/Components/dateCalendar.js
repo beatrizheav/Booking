@@ -6,9 +6,10 @@ import { colorsTheme } from "../ColorsTheme";
 export const containers = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        justifyContent: 'center',
+        alignItems: 'center'
     },
     calendarContainer: {
-        paddingTop: '5%'
-    }
+       width: '100%',
+       paddingTop: '10%'
+    },
 })

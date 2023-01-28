@@ -29,10 +29,9 @@ const Booking = () => {
         <FlightInfo />
         {/* <Origin /> */}
         {/* <Destination /> */}
-        {/* <Passengers/> */}
-        <DateCalendar/>
+        {/* <DateCalendar/> */}
+        <Passengers/>
         <CustomButtom style={controls.button} text='Next' />
-        
       </View>
     </View>
   )

@@ -4,9 +4,10 @@ import { containers, texts, controls } from '../styles/Components/selectMenu'
 import data from '../countries2.json'
 import store from '../redux/store'
 
-export default function SelectMenu() {
+export default function SelectMenu( {type} ) {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState('')
+  console.log("type",type)
 
   const handleOnPress = (country, capital, code) => {
     setModalVisible(false)
@@ -16,7 +17,7 @@ export default function SelectMenu() {
       code: code
     })
     store.dispatch({
-      type: 'ADD_ORIGIN',
+      type: type,
       payload: {
         country: country,
         capital: capital,

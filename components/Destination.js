@@ -8,7 +8,7 @@ const Destination = () => {
       <View>
         <BookingTitle text={'Where will you be flying to?'} />
       </View>
-      <SelectMenu/>
+      <SelectMenu type='ADD_DESTINATION'/>
     </View>
   )
 }

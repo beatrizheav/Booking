@@ -35,19 +35,21 @@ const initialState = [
 export const flightInformationReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_ORIGIN':
+
       const newState = [...state]
       newState[0].origin.country = action.payload.country
       newState[0].origin.capital = action.payload.capital
       newState[0].origin.code = action.payload.code
       return newState
     case 'ADD_DESTINATION':
+
       const newStateDestination = [...state]
-      newState[0].destination.country = action.payload.country
-      newState[0].destination.capital = action.payload.capital
-      newState[0].destination.code = action.payload.code
+      newStateDestination[0].destination.country = action.payload.country
+      newStateDestination[0].destination.capital = action.payload.capital
+      newStateDestination[0].destination.code = action.payload.code
       return newStateDestination
     case 'ADD_DATE':
-      
+
       const newStateDate = [...state]
       newStateDate[0].date = action.payload.date
       

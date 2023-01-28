@@ -6,39 +6,48 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars'
 import { useState } from 'react'
 import store from '../redux/store'
 import { useSelector } from 'react-redux'
+import moment from 'moment'
 
 const DateCalendar = () => {
 
-  const flightInfo = useSelector(state => state.flightInfo)
-  const dateSelected = "'"+flightInfo[0].date+"'"
-  console.log(dateSelected, "dateSelected")
+  const [daySelect, setDaySelect] = useState('')
+  const _format = 'YYYY-MM-DD'
+  const _today = moment().format(_format)
+  const _maxDate = moment().add(12, 'months').format(_format)
+  let markedDates = {
+    [daySelect]: { selected: true, selectedColor: '#5c6ef8' },
+  }
+
+  const onDaySelect = (day) => {
+    let selectedDay = moment(day.dateString).format(_format)
+    setDaySelect(selectedDay)
+    store.dispatch({
+      type: 'ADD_DATE',
+      payload: {
+        date: daySelect
+      }
+    })
+  }
 
   return (
     <View style={containers.mainContainer}>
       <BookingTitle text={'Select Date'} />
       <View style={containers.calendarContainer}>
         <Calendar
-          initialDate={'2023-01-27'}
-          minDate={'2023-01-27'}
-          maxDate={'2024-01-27'}
+          initialDate={_today}
+          minDate={_today}
+          maxDate={_maxDate}
           renderArrow={(direction) =>
             direction == 'left' ?
               <AntDesign name="left" size={24} color="#5c6ef8" />
               :
               <AntDesign name="right" size={24} color="#5c6ef8" />}
-          markedDates={{
-            '2023-01-28': { selected: true, selectedColor: '#5c6ef8' },
-          }}
+          markedDates={markedDates}
           onDayPress={day => {
-            store.dispatch({
-              type: 'ADD_DATE',
-              payload: {
-                date: day.dateString
-              }
-            })
+            onDaySelect(day)
           }}
           theme={{
-            textMonthFontSize: 17,
+            textMonthFontSize: 18,
             textMonthFontWeight: 'bold',
             calendarBackground: '#f3f2f3',
             textSectionTitleColor: '#000000',
