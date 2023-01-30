@@ -8,16 +8,32 @@ import Passengers from '../components/Passengers'
 import DateCalendar from '../components/DateCalendar'
 import Origin from '../components/Origin'
 import Destination from '../components/Destination'
+import { useState } from 'react'
+import store from '../redux/store'
+import { plusCount } from '../redux/reducer'
+import { useSelector } from 'react-redux'
+import BookingTitle from '../components/BookingTitle'
 
 const Booking = () => {
-  const navigation = useNavigation();
-  return (
+  const navigation = useNavigation()
+  const flightBooking = useSelector(state => state.flightInfo)
+  const counter = 1
+  console.log("PAGINA", flightBooking[0].count)
 
+  return (
     <View style={containers.main}>
       <View style={containers.container}>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Login')
+          onPress={
+            flightBooking[0].count === 0 ?
+              (() => navigation.navigate('Login')) :
+              (() =>
+                store.dispatch({
+                  type: 'MINUS_COUNT',
+                  payload: {
+                    counter: counter
+                  }
+                }))
           }>
           <Ionicons
             name='chevron-back-outline'
@@ -26,12 +42,22 @@ const Booking = () => {
             style={graphics.backIcon}
           />
         </TouchableOpacity>
+
         <FlightInfo />
-        {/* <Origin /> */}
-        {/* <Destination /> */}
-        {/* <DateCalendar/> */}
-        <Passengers/>
-        <CustomButtom style={controls.button} text='Next' />
+
+        {flightBooking[0].count === 0 ? <Origin /> :
+          flightBooking[0].count === 1 ? <Destination /> :
+            flightBooking[0].count === 2 ? <DateCalendar /> :
+              flightBooking[0].count === 3 ? <Passengers /> : <BookingTitle text='Your request was received' />}
+
+        {flightBooking[0].count === 4 ? <CustomButtom style={controls.button} text='Finish' handlePress={() => navigation.navigate('Login')} /> :
+          <CustomButtom style={controls.button} text='Next' handlePress={() => store.dispatch({
+            type: 'PLUS_COUNT',
+            payload: {
+              counter: counter
+            }
+          })} />}
+
       </View>
     </View>
   )

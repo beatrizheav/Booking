@@ -18,15 +18,62 @@ const DateCalendar = () => {
     [daySelect]: { selected: true, selectedColor: '#5c6ef8' },
   }
 
-  const onDaySelect = (day) => {
-    let selectedDay = moment(day.dateString).format(_format)
-    setDaySelect(selectedDay)
+  const stringDate = (day) => {
+    let monthNumber = day.month
+    let monthWord = ''
+    switch (monthNumber) {
+      case 1:
+        monthWord = 'January'
+        break;
+      case 2:
+        monthWord = 'February'
+        break;
+      case 3:
+        monthWord = 'March'
+        break;
+      case 4:
+        monthWord = 'April'
+        break;
+      case 5:
+        monthWord = 'May'
+        break;
+      case 6:
+        monthWord = 'June'
+        break;
+      case 7:
+        monthWord = 'July'
+        break;
+      case 8:
+        monthWord = 'August'
+        break;
+      case 9:
+        monthWord = 'September'
+        break;
+      case 10:
+        monthWord = 'October'
+        break;
+      case 11:
+        monthWord = 'November'
+        break;
+      case 12:
+        monthWord = 'December'
+        break;
+      default:
+        monthWord = 'undefined'
+        break;
+    }
+    let dateText = monthWord + ' ' + day.day + ', ' + day.year
     store.dispatch({
       type: 'ADD_DATE',
       payload: {
-        date: daySelect
+        date: dateText
       }
     })
+  }
+
+  const onDaySelectFormat = (day) => {
+    let selectedDay = moment(day.dateString).format(_format)
+    setDaySelect(selectedDay)
   }
 
   return (
@@ -44,7 +91,8 @@ const DateCalendar = () => {
               <AntDesign name="right" size={24} color="#5c6ef8" />}
           markedDates={markedDates}
           onDayPress={day => {
-            onDaySelect(day)
+            onDaySelectFormat(day)
+            stringDate(day)
           }}
           theme={{
             textMonthFontSize: 18,
