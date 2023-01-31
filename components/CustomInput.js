@@ -3,20 +3,20 @@ import { graphics, controls, containers } from '../styles/Components/input'
 import { useState } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-export const CustomInput = ({ values, type }) => {
-  const [inputText, setInputText] = useState('')
-  const [passwordVisible, setPasswordVisible] = useState(false)
+export const CustomInput = ({ value, type, handleChange }) => {
+  
+  const [passwordVisible, setPasswordVisible] = useState(true)
 
   return (
     <View>
       {type === 'text' ? (
         <TextInput
-          onChangeText={value => setInputText(value)}
+          onChangeText={handleChange}
           name = 'firstName'
-          value = {values}
+          value = {value}
           label = 'firstName'
           style = {
-            inputText === ''
+            value === '' || value === undefined
               ? [controls.inputInactive, controls.input]
               : [controls.inputActive, controls.input]
           }
@@ -24,13 +24,13 @@ export const CustomInput = ({ values, type }) => {
       ) : type === 'password' ? (
         <View style={containers.iconContainer}>
           <TextInput
-            onChangeText={value => setInputText(value)}
+            onChangeText={handleChange}
             name = 'firstName'
-            value = {values}
+            value = {value}
             label = 'firstName'
             secureTextEntry = {passwordVisible}
             style = {
-              inputText === ''
+              value === ''|| value === undefined
                 ? [controls.inputInactive, controls.input]
                 : [controls.inputActive, controls.input]
             }
@@ -39,7 +39,7 @@ export const CustomInput = ({ values, type }) => {
           style={{width: 30, position: 'absolute'}}
           onPress={()=>setPasswordVisible(!passwordVisible)}>
             <Ionicons
-              style = {inputText === '' ? [graphics.icon, graphics.iconInactive] : [graphics.icon, graphics.iconActive]}
+              style = {value === ''||value === undefined ? [graphics.icon, graphics.iconInactive] : [graphics.icon, graphics.iconActive]}
               name = {passwordVisible ? 'eye-off' : 'eye'}
               size = {18}
             />

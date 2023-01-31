@@ -7,8 +7,7 @@ import store from '../redux/store'
 export default function SelectMenu( {type} ) {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState('')
-  console.log("type",type)
-
+  
   const handleOnPress = (country, capital, code) => {
     setModalVisible(false)
     setSelectedDestination({

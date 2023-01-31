@@ -3,6 +3,7 @@ import {
   Text,
   View,
   ScrollView,
+  Alert
 } from 'react-native'
 import { Formik } from 'formik'
 import Checkbox from 'expo-checkbox'
@@ -10,51 +11,62 @@ import { CustomInput } from '../components/CustomInput'
 import { controls, containers, texts } from '../styles/Screens/login.js'
 import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native"
+import store from '../redux/store'
 
 const SignUp = () => {
   const navigation = useNavigation();
 
   const [isChecked, setChecked] = useState(false)
   const [isChecked2, setChecked2] = useState(false)
-  const [inputText, setInputText] = useState('')
+
+  const validate = (values) => {
+    if (values.name === '' || values.email === '' || values.password === '') {
+      Alert.alert("Error", "You must fill all the fields to continue")
+    }
+  }
 
   return (
     <View style={containers.container}>
       <ScrollView>
         <Text style={texts.title}>Sign Up</Text>
         <Formik
+          initialValues={{ name: '', email: '', password: '' }}
           onSubmit={values => {
             validate(values)
-            Keyboard.dismiss()
+            store.dispatch({
+              type: 'CREATE_USER',
+              payload: {
+                user: values
+              }
+            })
           }}
         >
-          {({ handleChange, values, errors }) => (
+          {({ handleChange, values, errors, handleSubmit }) => (
             <View style={containers.screenContainer}>
 
               <Text style={texts.titlesText}>First Name</Text>
               <CustomInput
-                handleChange={handleChange}
-                inputText={inputText}
-                values={values}
+                handleChange={handleChange('name')}
+                value={values.name}
                 type='text'
               />
 
               <Text style={texts.titlesText}>Email *</Text>
               <CustomInput
-                handleChange={handleChange}
-                values={values}
+                handleChange={handleChange('email')}
+                value={values.email}
                 type='text'
-                onChangeText={value => setInputText(value)}
               />
 
               <Text style={texts.titlesText} type='text'>Password *</Text>
               <CustomInput
-                handleChange={handleChange}
-                values={values}
+                handleChange={handleChange('password')}
+                value={values.password}
                 type='password'
-                onChangeText={value => setInputText(value)}
+
               />
+              {errors.password ? <Text>{errors.password}</Text> : <></>}
               <Text style={texts.warningPassword}>
                 Use 8 or more characters with a mix of letters, numbers and symbols
               </Text>
@@ -88,12 +100,12 @@ const SignUp = () => {
               </View>
 
               <View style={containers.buttonsContainer}>
-                {isChecked  === true ?
-                  <CustomButton text='Sign Up' disabled={false} icon={false} handlePress={()=>navigation.navigate('Booking')} /> :
-                  <CustomButton text='Sign Up' disabled={true} icon={false} />
+                {isChecked === true ?
+                  <CustomButton text='Sign Up' disabled={false} icon={false} handlePress={handleSubmit} /> :
+                  <CustomButton text='Sign Up' disabled={true} icon={false} handlePress={handleSubmit} />
                 }
                 <Text style={texts.accountText}>or</Text>
-                  <CustomButton text='Sign Up with Google' disabled={false} icon={true} handlePress={()=>navigation.navigate('Booking')}/>
+                <CustomButton text='Sign Up with Google' disabled={false} icon={true} handlePress={()=> navigation.navigate('Booking')} />
 
                 <View style={containers.footerContainer}>
                   <Text style={texts.accountText}>
@@ -113,4 +125,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp;
+export default SignUp

@@ -1,4 +1,6 @@
-// Destino, origen, fecha, pasajeros
+// Destino, origen, fecha, pasajeros, usuarios
+import axios from 'axios'
+
 export const addDestination = {
   type: 'ADD_DESTINATION'
 }
@@ -23,6 +25,10 @@ export const minusCount = {
   type: 'MINUS_COUNT'
 }
 
+export const createUser = {
+  type: 'CREATE_USER'
+}
+
 const initialState = [
   {
     destination: {
@@ -40,6 +46,31 @@ const initialState = [
     count: 0
   }
 ]
+
+const user = [
+  {
+    name: "",
+    email: "",
+    password: ""
+  }
+]
+
+export const userInformationReducer = (state = user, action) => {
+  switch (action.type) {
+    case 'CREATE_USER':
+      const newStateUser = [...state]
+      newStateUser[0].name = action.payload.user.name
+      newStateUser[0].email = action.payload.user.email
+      newStateUser[0].password = action.payload.user.password
+      axios.post('http://localhost:3000/',action.payload.user).then(response=>{
+        console.log(response.data)
+      })
+      return newStateUser
+
+    default:
+      return state
+  }
+}
 
 export const flightInformationReducer = (state = initialState, action) => {
   switch (action.type) {

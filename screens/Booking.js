@@ -8,9 +8,7 @@ import Passengers from '../components/Passengers'
 import DateCalendar from '../components/DateCalendar'
 import Origin from '../components/Origin'
 import Destination from '../components/Destination'
-import { useState } from 'react'
 import store from '../redux/store'
-import { plusCount } from '../redux/reducer'
 import { useSelector } from 'react-redux'
 import BookingTitle from '../components/BookingTitle'
 
@@ -18,7 +16,6 @@ const Booking = () => {
   const navigation = useNavigation()
   const flightBooking = useSelector(state => state.flightInfo)
   const counter = 1
-  console.log("PAGINA", flightBooking[0].count)
 
   return (
     <View style={containers.main}>
@@ -57,7 +54,6 @@ const Booking = () => {
               counter: counter
             }
           })} />}
-
       </View>
     </View>
   )

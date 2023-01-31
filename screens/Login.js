@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import {
   Text,
-  View
+  View,
+  Alert
 } from 'react-native'
 import { Formik } from 'formik'
 import { CustomInput } from '../components/CustomInput'
@@ -10,10 +11,15 @@ import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
 import { useNavigation } from "@react-navigation/native";
 
-
 const Login = () => {
   const [inputText, setInputText] = useState('')
   const navigation = useNavigation();
+
+  const validate = (values) => {
+    if (values.email === ('' || undefined) || values.password === ('' || undefined)) {
+      Alert.alert("Error", "You must fill all the fields to continue")
+    }
+  }
 
   return (
     <View style={containers.container}>
@@ -21,35 +27,33 @@ const Login = () => {
       <Formik
         onSubmit={values => {
           validate(values)
-          Keyboard.dismiss()
+          // Keyboard.dismiss()
         }}
       >
-        {({ handleChange, values, errors }) => (
+        {({ handleChange, handleSubmit, values, errors }) => (
           <View style={containers.screenContainer}>
 
             <Text style={texts.titlesText}>Email *</Text>
             <CustomInput
-              handleChange={handleChange}
-              values={values}
+              handleChange={handleChange('email')}
+              value={values.email}
               type='text'
-              onChangeText={value => setInputText(value)}
             />
 
             <Text style={texts.titlesText} type='text'>Password *</Text>
             <CustomInput
-              handleChange={handleChange}
-              values={values}
+              handleChange={handleChange('password')}
+              value={values.password}
               type='password'
-              onChangeText={value => setInputText(value)}
             />
             <Text style={texts.warningPassword}>
               Use 8 or more characters with a mix of letters, numbers and symbols
             </Text>
 
             <View style={containers.buttonsContainer}>
-              <CustomButton text='Sign In' disabled={false} icon={false} handlePress={()=>navigation.navigate('Booking')}/>
+              <CustomButton text='Sign In' disabled={false} icon={false} handlePress={handleSubmit} />
               <Text style={texts.accountText}>or</Text>
-              <CustomButton text='Sign In with Google' disabled={false} icon={true} />
+              <CustomButton text='Sign In with Google' disabled={false} icon={true} handlePress={()=> navigation.navigate('Booking')}/>
 
               <View style={containers.footerContainer}>
                 <Text style={texts.accountText}>
