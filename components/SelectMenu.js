@@ -1,24 +1,47 @@
-import { useState } from 'react'
-import { Text, View, TouchableOpacity, Modal, ScrollView ,Button} from 'react-native'
+import { useState, useEffect } from 'react'
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  Button
+} from 'react-native'
 import { containers, texts, controls } from '../styles/Components/selectMenu'
-import data from '../countries2.json'
 import store from '../redux/store'
 import axios from 'axios'
 
-export default function SelectMenu( {type} ) {
+export default function SelectMenu ({ type }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState('')
- 
+  const data = []
+
+  useEffect(() => {
+   getCountries
+    console.log('DATA',data)
+  },[])
+
   const getCountries = async () => {
+    console.log('getCOuhtnries')
     try {
-    const response = await axios.get('/api/countries');
-    console.log("COUNTRIES", response.data);
+      const response = await axios.get(
+        'https://tame-red-dugong.cyclic.app/api/countries'
+      )
+      const countries = response.data.countries
+      countries.map(country => {
+        data.push({
+          country: country.name_en,
+          capital: country.capital_en,
+          code: country.code_3
+        })
+      })     
     } catch (error) {
-    console.log(error);
+      console.log(error)
     }
-    };
-  
+  }
+
   const handleOnPress = (country, capital, code) => {
+    console.log('DATA', data)
     setModalVisible(false)
     setSelectedDestination({
       country: country,
@@ -37,9 +60,7 @@ export default function SelectMenu( {type} ) {
 
   return (
     <View>
-    <Button onPress={getCountries} title='Countruies'>
-    
-    </Button>
+      <Button onPress={getCountries} title='Countruies'></Button>
       <TouchableOpacity
         style={containers.selectContainer}
         onPress={() => setModalVisible(true)}
@@ -47,7 +68,9 @@ export default function SelectMenu( {type} ) {
         {selectedDestination === '' ? (
           <Text style={texts.textLocation}>Select location</Text>
         ) : (
-          <Text style={texts.textLocation}>{selectedDestination.country}, {selectedDestination.capital}</Text>
+          <Text style={texts.textLocation}>
+            {selectedDestination.country}, {selectedDestination.capital}
+          </Text>
         )}
       </TouchableOpacity>
 
@@ -55,7 +78,6 @@ export default function SelectMenu( {type} ) {
         animationType='slide'
         transparent={true}
         visible={modalVisible}
-
         onRequestClose={() => {
           setModalVisible(!modalVisible)
         }}
@@ -68,7 +90,13 @@ export default function SelectMenu( {type} ) {
                   <TouchableOpacity
                     key={country.code_3}
                     style={controls.countriesTouchable}
-                    onPress={() => handleOnPress(country.name_en, country.capital_en, country.code_3)}
+                    onPress={() =>
+                      handleOnPress(
+                        country.name_en,
+                        country.capital_en,
+                        country.code_3
+                      )
+                    }
                   >
                     <Text style={texts.countriesListText}>
                       {country.name_en}, {country.capital_en}
