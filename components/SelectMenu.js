@@ -1,12 +1,22 @@
 import { useState } from 'react'
-import { Text, View, TouchableOpacity, Modal, ScrollView } from 'react-native'
+import { Text, View, TouchableOpacity, Modal, ScrollView ,Button} from 'react-native'
 import { containers, texts, controls } from '../styles/Components/selectMenu'
 import data from '../countries2.json'
 import store from '../redux/store'
+import axios from 'axios'
 
 export default function SelectMenu( {type} ) {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState('')
+ 
+  const getCountries = async () => {
+    try {
+    const response = await axios.get('/api/countries');
+    console.log("COUNTRIES", response.data);
+    } catch (error) {
+    console.log(error);
+    }
+    };
   
   const handleOnPress = (country, capital, code) => {
     setModalVisible(false)
@@ -27,6 +37,9 @@ export default function SelectMenu( {type} ) {
 
   return (
     <View>
+    <Button onPress={getCountries} title='Countruies'>
+    
+    </Button>
       <TouchableOpacity
         style={containers.selectContainer}
         onPress={() => setModalVisible(true)}

@@ -1,4 +1,3 @@
-// Destino, origen, fecha, pasajeros, usuarios
 import axios from 'axios'
 
 export const addDestination = {
@@ -29,6 +28,7 @@ export const createUser = {
   type: 'CREATE_USER'
 }
 
+
 const initialState = [
   {
     destination: {
@@ -49,22 +49,43 @@ const initialState = [
 
 const user = [
   {
-    name: "",
-    email: "",
-    password: ""
+    name: '',
+    email: '',
+    password: ''
   }
 ]
+
+async function sendSignupData() {
+ 
+  try {
+    const response = await axios.post('http://localhost:3000/api/users/signup', {
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: 'secretpassword'
+    });
+
+    console.log("response",response.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export const userInformationReducer = (state = user, action) => {
   switch (action.type) {
     case 'CREATE_USER':
+      console.log('estoy enr educer')
       const newStateUser = [...state]
       newStateUser[0].name = action.payload.user.name
       newStateUser[0].email = action.payload.user.email
       newStateUser[0].password = action.payload.user.password
-      axios.post('http://localhost:3000/',action.payload.user).then(response=>{
-        console.log(response.data)
-      })
+      console.log('reeucer ingor', action.payload.user)
+      const object = {
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        password: action.payload.user.password
+      }
+
+      sendSignupData();
       return newStateUser
 
     default:
