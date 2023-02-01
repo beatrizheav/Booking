@@ -2,26 +2,25 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
+require('dotenv').config()
 
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 const PORT = 3000
-const uri =
-  'mongodb+srv://admin:8183@fso2022.2bqdt3g.mongodb.net/UserDB?retryWrites=true&w=majority'
 mongoose.set('strictQuery', true)
 const User = require('./models/user')
-const Country=require('./models/countries')
+const Country = require('./models/countries')
 
-//DB connection
-mongoose.connect(uri).then(result => {
-  console.log('Connected to MongoDB')
-})
-
-//Local Server connection
-app.listen(PORT, () => {
-  console.log('Server running on port', PORT)
-})
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(result => {
+    console.log('Connected to MongoDb')
+    app.listen(PORT, () => {
+      console.log('Server running on port', PORT)
+    })
+  })
+  .catch(error => console.log(error))
 
 //To check the server:
 app.get('/', (request, response) => {
