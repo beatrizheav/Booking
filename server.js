@@ -43,11 +43,10 @@ app.get('/api/countries', (request, response) => {
 //To signUp:
 app.post('/api/users/signup', (request, response) => {
   console.log('toy en el server')
-  console.log(request.body)
+  console.log("requestBody",request.body)
   let name = request.body.name
   let email = request.body.email
   let password = request.body.password
-  console.log(name, email, password)
 
   if (name === '' || email === '' || password === '') {
     response.status(404).json({

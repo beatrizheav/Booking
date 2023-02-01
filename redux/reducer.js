@@ -28,6 +28,10 @@ export const createUser = {
   type: 'CREATE_USER'
 }
 
+export const loginUser = {
+  type: 'LOGIN_USER'
+}
+
 
 const initialState = [
   {
@@ -55,37 +59,34 @@ const user = [
   }
 ]
 
-async function sendSignupData() {
+async function sendSignupData(object) {
  
   try {
-    const response = await axios.post('http://localhost:3000/api/users/signup', {
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: 'secretpassword'
-    });
-
-    console.log("response",response.data);
+    const response = await axios.post('http://192.168.11.100:3000/api/users/signup', object);
+    console.log("responseFront:",response.data);
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 
 export const userInformationReducer = (state = user, action) => {
   switch (action.type) {
     case 'CREATE_USER':
-      console.log('estoy enr educer')
+      console.log('estoy en el reducer')
       const newStateUser = [...state]
       newStateUser[0].name = action.payload.user.name
       newStateUser[0].email = action.payload.user.email
       newStateUser[0].password = action.payload.user.password
-      console.log('reeucer ingor', action.payload.user)
       const object = {
         name: action.payload.user.name,
         email: action.payload.user.email,
         password: action.payload.user.password
       }
 
-      sendSignupData();
+
+      
+
+      sendSignupData(object);
       return newStateUser
 
     default:
