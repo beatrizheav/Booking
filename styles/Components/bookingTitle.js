@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native'
-import { colorsTheme } from '../ColorsTheme'
 
 export const texts = StyleSheet.create({
   title: {

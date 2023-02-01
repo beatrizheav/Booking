@@ -60,9 +60,8 @@ const user = [
 ]
 
 async function sendSignupData(object) {
- 
   try {
-    const response = await axios.post('http://192.168.11.100:3000/api/users/signup', object);
+    const response = await axios.post('http://192.168.0.5:3000/api/users/signup', object);
     console.log("responseFront:",response.data);
   } catch (error) {
     console.log(error);

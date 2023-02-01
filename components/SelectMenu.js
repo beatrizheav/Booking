@@ -11,30 +11,26 @@ import { containers, texts, controls } from '../styles/Components/selectMenu'
 import store from '../redux/store'
 import axios from 'axios'
 
-export default function SelectMenu ({ type }) {
+export default function SelectMenu({ type }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState('')
   const data = []
-
-  useEffect(() => {
-   getCountries
-    console.log('DATA',data)
-  },[])
 
   const getCountries = async () => {
     console.log('getCOuhtnries')
     try {
       const response = await axios.get(
-        'https://tame-red-dugong.cyclic.app/api/countries'
+        'https://192.168.0.5:3000/api/countries'
       )
       const countries = response.data.countries
+      console.log(countries)
       countries.map(country => {
         data.push({
           country: country.name_en,
           capital: country.capital_en,
           code: country.code_3
         })
-      })     
+      })
     } catch (error) {
       console.log(error)
     }

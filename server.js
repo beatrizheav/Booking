@@ -40,10 +40,19 @@ app.get('/api/countries', (request, response) => {
   })
 })
 
+const ValidatePassword = (password) => {
+  return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&._-])[A-Za-z\d@$!%*#?&._-]{8,}$/.test(password)
+}
+
+const ValidateEmail = (email) => {
+  return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/.test(email)
+}
+
+
 //To signUp:
 app.post('/api/users/signup', (request, response) => {
   console.log('toy en el server')
-  console.log("requestBody",request.body)
+  console.log("requestBody", request.body)
   let name = request.body.name
   let email = request.body.email
   let password = request.body.password
@@ -53,12 +62,19 @@ app.post('/api/users/signup', (request, response) => {
       status: 'FAILED',
       message: 'Empty input fields!'
     })
+  } else if (ValidateEmail(email) === false){
+    response.json({
+      status: 'FAILED',
+      message: 'Invalid email address'
+    })
   } else if (password.length < 8) {
+    console.log(ValidatePassword(password))
+
     response.json({
       status: 'FAILED',
       message: 'Password is too short'
     })
-  } else {
+  } else if (ValidatePassword(password) === true) {
     User.find({ email }).then(result => {
       console.log('result', result)
 
@@ -91,6 +107,12 @@ app.post('/api/users/signup', (request, response) => {
             })
           })
       }
+    })
+  } else {
+    console.log(ValidatePassword(password))
+    response.json({
+      status: 'FAILED',
+      message: 'Include numbers and symbols'
     })
   }
 })

@@ -9,4 +9,4 @@ const BookingTitle = ({text}) => {
   )
 }
 
-export default BookingTitle;
+export default BookingTitle
