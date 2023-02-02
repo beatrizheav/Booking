@@ -21,7 +21,7 @@ export default function SelectMenu({ type }) {
   //   console.log('getCOuhtnries')
   //   try {
   //     const response = await axios.get(
-  //       'http://192.168.11.100:3000/api/countries'
+  //       'https://tame-red-dugong.cyclic.appapi/countries'
   //     )
   //     const countries = response.data.countries
   //     console.log(countries)

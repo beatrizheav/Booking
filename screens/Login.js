@@ -25,7 +25,7 @@ const Login = () => {
     console.log('estoy en la GOOGLR')
     // try {
     //   const response = await axios.get(
-    //     'http://192.168.11.100:3000/auth/google'
+    //     'https://tame-red-dugong.cyclic.app/auth/google'
     //   )
     //   console.log('responseGOOGLR:', response.data)
     // } catch (error) {
