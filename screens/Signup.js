@@ -13,16 +13,19 @@ import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
 import { useNavigation } from "@react-navigation/native"
 import store from '../redux/store'
+import {useSelector} from 'react-redux'
 
 const SignUp = () => {
   const navigation = useNavigation();
-
   const [isChecked, setChecked] = useState(false)
   const [isChecked2, setChecked2] = useState(false)
+  const userAttempt = useSelector(state => state.userInformation)
 
   const validate = (values) => {
+    console.log("USERATTEMPT",userAttempt.state)
     if (values.name === '' || values.email === '' || values.password === '') {
       Alert.alert("Error", "You must fill all the fields to continue")
+     
     }
   }
 
@@ -45,7 +48,7 @@ const SignUp = () => {
           {({ handleChange, values, errors, handleSubmit }) => (
             <View style={containers.screenContainer}>
 
-              <Text style={texts.titlesText}>First Name</Text>
+              <Text style={texts.titlesText}>Username</Text>
               <CustomInput
                 handleChange={handleChange('name')}
                 value={values.name}

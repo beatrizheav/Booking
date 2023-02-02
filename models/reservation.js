@@ -2,17 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ReservationSchema = new Schema({
-  countryOrigin: String,
-  capitalOrigin: String,
-  codeOrigin: String,
-  countryDestination: String,
-  countryDestination: String,
-  codeDestination: String,
+  destinationCountry: String,
+  destinationCapital: String,
+  destinationCode: String,
+  originCountry: String,
+  originCapital: String,
+  originCode: String,
   date: Date,
   passengers: Number
 })
 
-
-
-const Reservation = mongoose.model('reservations', BookingSchema)
+const Reservation = mongoose.model('reservations', ReservationSchema)
 module.exports = Reservation

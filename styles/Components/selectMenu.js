@@ -25,7 +25,6 @@ export const controls = StyleSheet.create({
 
 export const containers = StyleSheet.create({
   selectContainer: {
-   
     marginTop: 10,
     height: '24%',
     borderBottomWidth: 1,
@@ -37,13 +36,13 @@ export const containers = StyleSheet.create({
     backgroundColor: '#E5E7EB',
     width: '85%',
     alignSelf: 'center',
-    height: '20%',
+    height: '60%',
     position:'absolute',
-    marginTop:'100%',
-    borderRadius:10
+    marginTop:'53%',
+    borderRadius:10,
   },
   modalMainContainer: {
-    // backgroundColor: 'red',
+    //backgroundColor: 'red',
     flex: 1,
     position: 'relative'
   }

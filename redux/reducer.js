@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useNavigation } from '@react-navigation/native'
 
 export const addDestination = {
   type: 'ADD_DESTINATION'
@@ -32,6 +33,9 @@ export const loginUser = {
   type: 'LOGIN_USER'
 }
 
+export const createReservation = {
+  type: 'CREATE_RESERVATION'
+}
 
 const initialState = [
   {
@@ -55,18 +59,11 @@ const user = [
   {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    status: '',
+    message: ''
   }
 ]
-
-async function sendSignupData(object) {
-  try {
-    const response = await axios.post('http://192.168.0.5:3000/api/users/signup', object);
-    console.log("responseFront:",response.data);
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 export const userInformationReducer = (state = user, action) => {
   switch (action.type) {
@@ -76,18 +73,63 @@ export const userInformationReducer = (state = user, action) => {
       newStateUser[0].name = action.payload.user.name
       newStateUser[0].email = action.payload.user.email
       newStateUser[0].password = action.payload.user.password
-      const object = {
+      const objectToCreate = {
         name: action.payload.user.name,
         email: action.payload.user.email,
         password: action.payload.user.password
       }
 
-
-      
-
-      sendSignupData(object);
+      async function createUserInDB (objectToCreate) {
+        console.log('estoy en la funcion')
+        try {
+          const response = await axios.post(
+            'http://192.168.11.100:3000/api/users',
+            objectToCreate
+          )
+          console.log('responseFront:', response.data)
+          if (response.data.status) {
+            console.log(
+              response.data.message,
+              'MESSAGE',
+              newStateUser[0].status
+            )
+            alert(response.data.message)
+          }
+        } catch (error) {
+          console.log('ERROR', error)
+        }
+      }
+      createUserInDB(object)
       return newStateUser
 
+    case 'LOGIN_USER':
+      const navigation = useNavigation()
+      const email = action.payload.user.email
+      const objectToSearch = {
+        email: action.payload.user.email,
+        password: action.payload.user.password
+      }
+      console.log('estoy en el reducer login', objectToSearch)
+
+      async function searchUserInDB (objectToSearch) {
+        console.log('estoy en la funcion')
+        try {
+          const response = await axios.post(
+            'http://192.168.11.100:3000/api/users/login',
+            objectToSearch
+          )
+          console.log('responseFront:', response.data)
+          if (response.data.status === 'FAILED') {
+            alert(response.data.message)
+          } else if (response.data.status === 'OK') {
+            //ir a booking
+          }
+        } catch (error) {
+          console.log('ERROR', error)
+        }
+      }
+      searchUserInDB(objectToSearch)
+      const newLoginUser = [...state]
     default:
       return state
   }
@@ -128,6 +170,27 @@ export const flightInformationReducer = (state = initialState, action) => {
       const newStateMinusCount = [...state]
       newStateMinusCount[0].count -= action.payload.counter
       return newStateMinusCount
+
+    case 'CREATE_RESERVATION':
+      const reservationToCreate = action.payload.reservation
+
+      async function createReservation (reservationToCreate) {
+        try {
+          const response = await axios.post(
+            'http://192.168.11.100:3000/api/users/reservations',
+            reservationToCreate
+          )
+          console.log('responseFront:', response.data)
+          if(response.data.status){
+            alert(response.data.message)
+          }
+          
+        } catch (error) {
+          console.log('ERROR', error)
+        }
+      }
+
+      createReservation(reservationToCreate)
 
     default:
       return state

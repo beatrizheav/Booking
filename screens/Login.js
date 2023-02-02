@@ -10,13 +10,14 @@ import { controls, containers, texts } from '../styles/Screens/login.js'
 import CustomButton from '../components/CustomButton'
 import CustomUnderlined from '../components/CustomUnderlined'
 import { useNavigation } from "@react-navigation/native";
+import store from '../redux/store'
 
 const Login = () => {
   const [inputText, setInputText] = useState('')
   const navigation = useNavigation();
 
   const validate = (values) => {
-    if (values.email === ('' || undefined) || values.password === ('' || undefined)) {
+    if (values.email === '' || values.password === '') {
       Alert.alert("Error", "You must fill all the fields to continue")
     }
   }
@@ -27,6 +28,12 @@ const Login = () => {
       <Formik
         onSubmit={values => {
           validate(values)
+          store.dispatch({
+              type: 'LOGIN_USER',
+              payload: {
+                user: values
+              }
+            })
           // Keyboard.dismiss()
         }}
       >

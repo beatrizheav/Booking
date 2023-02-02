@@ -11,6 +11,7 @@ const PORT = 3000
 mongoose.set('strictQuery', true)
 const User = require('./models/user')
 const Country = require('./models/countries')
+const Reservation = require('./models/reservation')
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -22,11 +23,20 @@ mongoose
   })
   .catch(error => console.log(error))
 
-//To check the server:
+//To check the server users:
 app.get('/', (request, response) => {
   User.find({}).then(users => {
     response.json({
       alert: `There are ${users.length} users registered`
+    })
+  })
+})
+
+//To check the server reservation:
+app.get('/reservations', (request, response) => {
+  Reservation.find({}).then(users => {
+    response.json({
+      alert: `There are ${users.length} reservations`
     })
   })
 })
@@ -40,19 +50,22 @@ app.get('/api/countries', (request, response) => {
   })
 })
 
-const ValidatePassword = (password) => {
-  return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&._-])[A-Za-z\d@$!%*#?&._-]{8,}$/.test(password)
+const validatePassword = password => {
+  return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&._-])[A-Za-z\d@$!%*#?&._-]{8,}$/.test(
+    password
+  )
 }
 
-const ValidateEmail = (email) => {
-  return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/.test(email)
+const validateEmail = email => {
+  return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/.test(
+    email
+  )
 }
-
 
 //To signUp:
-app.post('/api/users/signup', (request, response) => {
+app.post('/api/users', (request, response) => {
   console.log('toy en el server')
-  console.log("requestBody", request.body)
+  console.log('requestBody', request.body)
   let name = request.body.name
   let email = request.body.email
   let password = request.body.password
@@ -62,19 +75,19 @@ app.post('/api/users/signup', (request, response) => {
       status: 'FAILED',
       message: 'Empty input fields!'
     })
-  } else if (ValidateEmail(email) === false){
+  } else if (validateEmail(email) === false) {
     response.json({
       status: 'FAILED',
       message: 'Invalid email address'
     })
   } else if (password.length < 8) {
-    console.log(ValidatePassword(password))
+    console.log(validatePassword(password))
 
     response.json({
       status: 'FAILED',
-      message: 'Password is too short'
+      message: 'Password must be at least 8 characters long'
     })
-  } else if (ValidatePassword(password) === true) {
+  } else if (validatePassword(password) === true) {
     User.find({ email }).then(result => {
       console.log('result', result)
 
@@ -95,7 +108,7 @@ app.post('/api/users/signup', (request, response) => {
           .then(result => {
             response.json({
               status: 'OK',
-              message: 'Sign Up successful',
+              message: 'User succesfully created! Please Login',
               data: result
             })
           })
@@ -109,66 +122,101 @@ app.post('/api/users/signup', (request, response) => {
       }
     })
   } else {
-    console.log(ValidatePassword(password))
+    console.log(validatePassword(password))
     response.json({
       status: 'FAILED',
-      message: 'Include numbers and symbols'
+      message: 'Password must include letters, numbers and symbols'
     })
   }
 })
 
 //To Login
-app.post('/api/users/signin', (request, response) => {
-  console.log('toy en el server')
-  console.log(request.body)
+app.post('/api/users/login', (request, response) => {
+  console.log('toy en el server LOGIN')
+  console.log('REQBODY', request.body.email)
   let email = request.body.email
   let password = request.body.password
   console.log(email, password)
 
   if (email === '' || password === '') {
-    response.status(404).json({
-      status: 'FAILED',
-      message: 'Empty input fields!'
-    })
-  } else if (password.length < 8) {
     response.json({
       status: 'FAILED',
-      message: 'Password is too short'
+      message: 'You must fill all the fields to continue'
     })
   } else {
-    User.find({ email }).then(result => {
-      console.log('result', result)
-
-      if (result.length) {
+    User.findOne({ email }, (error, user) => {
+      if (error) {
         response.json({
-          status: 'OK',
-          message: 'Login correct'
+          status: 'FAILED',
+          message: 'Internal error'
         })
+      } else if (user) {
+        if (user.password === password) {
+          response.json({
+            status: 'OK',
+            message: 'Successful login'
+          })
+        } else {
+          response.json({
+            status: 'FAILED',
+            message: 'Wrong password'
+          })
+        }
       } else {
         response.json({
           status: 'FAILED',
-          message: 'Login incoprrec',
-          data: result
+          message: 'The user is not registered'
         })
       }
     })
   }
+
+  // if (email === '' || password === '') {
+  //   response.status(404).json({
+  //     status: 'FAILED',
+  //     message: 'Empty input fields!'
+  //   })
+  // } else if (password.length < 8) {
+  //   response.json({
+  //     status: 'FAILED',
+  //     message: 'Password is too short'
+  //   })
+  // } else {
+  //   User.find({ email }).then(result => {
+  //     console.log('result', result)
+
+  //     if (result.length) {
+  //       response.json({
+  //         status: 'OK',
+  //         message: 'Login correct'
+  //       })
+  //     } else {
+  //       response.json({
+  //         status: 'FAILED',
+  //         message: 'Login incoprrec',
+  //         data: result
+  //       })
+  //     }
+  //   })
+  // }
 })
 
 //To create a new reservation
 app.post('/api/users/reservations', (request, response) => {
-  let req = request.body
-  let destinationCountry = req.destination.country
-  let destinationCapital = req.destination.capital
-  let destinationCode = req.destination.code
-  let originCountry = req.origin.country
-  let originCapital = req.origin.capital
-  let originCode = req.origin.code
-  let date = req.date
-  let passengers = req.passengers
+  let reservation = request.body
+  console.log('SERVER RESERVATIONS', reservation[0])
+  console.log('RESERVATION', reservation[0].destination.country)
 
-  console.log(
-    'req',
+  let destinationCountry = reservation[0].destination.country
+  let destinationCapital = reservation[0].destination.capital
+  let destinationCode = reservation[0].destination.code
+  let originCountry = reservation[0].origin.country
+  let originCapital = reservation[0].origin.capital
+  let originCode = reservation[0].origin.code
+  let date = reservation[0].date
+  let passengers = reservation[0].passengers
+
+  const newReservation = new Reservation({
     destinationCountry,
     destinationCapital,
     destinationCode,
@@ -177,7 +225,7 @@ app.post('/api/users/reservations', (request, response) => {
     originCode,
     date,
     passengers
-  )
+  })
 
   if (
     destinationCountry === '' ||
@@ -189,14 +237,41 @@ app.post('/api/users/reservations', (request, response) => {
     date === '' ||
     passengers === ''
   ) {
-    response.status(404).json({
+    response.json({
       status: 'FAILED',
-      message: 'Empty input fields!'
+      message: 'There is missing information on the reservation'
     })
   } else {
-    response.status(201).json({
-      status: 'OK',
-      message: 'Reservation created!'
+    const dateToString = new Date(date)
+
+    Reservation.findOne({ date }, (error, reservation) => {
+      if (error) {
+        response.json({
+          status: 'FAILED',
+          message: 'Internal error'
+        })
+      } else if (reservation) {
+        response.json({
+          status: 'FAILED',
+          message: `You already have a reservation for ${date}. You must select another date`
+        })
+      } else {
+        newReservation
+          .save()
+          .then(result => {
+            response.json({
+              status: 'OK',
+              message: 'Reservation created!'
+            })
+          })
+          .catch(error => {
+            console.log('error', error)
+            response.json({
+              status: 'FAILED',
+              message: 'Error creating a new reservation. Try later'
+            })
+          })
+      }
     })
   }
 })

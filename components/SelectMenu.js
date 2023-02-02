@@ -10,34 +10,34 @@ import {
 import { containers, texts, controls } from '../styles/Components/selectMenu'
 import store from '../redux/store'
 import axios from 'axios'
+import data from '../countries2.json'
 
 export default function SelectMenu({ type }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState('')
-  const data = []
 
-  const getCountries = async () => {
-    console.log('getCOuhtnries')
-    try {
-      const response = await axios.get(
-        'https://192.168.0.5:3000/api/countries'
-      )
-      const countries = response.data.countries
-      console.log(countries)
-      countries.map(country => {
-        data.push({
-          country: country.name_en,
-          capital: country.capital_en,
-          code: country.code_3
-        })
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
+  // const getCountries = async () => {
+  //   console.log('getCOuhtnries')
+  //   try {
+  //     const response = await axios.get(
+  //       'http://192.168.11.100:3000/api/countries'
+  //     )
+  //     const countries = response.data.countries
+  //     console.log(countries)
+  //     countries.map(country => {
+  //       data.push({
+  //         country: country.name_en,
+  //         capital: country.capital_en,
+  //         code: country.code_3
+  //       })
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const handleOnPress = (country, capital, code) => {
-    console.log('DATA', data)
     setModalVisible(false)
     setSelectedDestination({
       country: country,
@@ -56,7 +56,6 @@ export default function SelectMenu({ type }) {
 
   return (
     <View>
-      <Button onPress={getCountries} title='Countruies'></Button>
       <TouchableOpacity
         style={containers.selectContainer}
         onPress={() => setModalVisible(true)}

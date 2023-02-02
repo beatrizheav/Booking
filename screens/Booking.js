@@ -3,7 +3,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { containers, graphics, controls } from '../styles/Screens/booking'
 import FlightInfo from '../components/FlightInfo'
 import CustomButtom from '../components/CustomButton'
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from '@react-navigation/native'
 import Passengers from '../components/Passengers'
 import DateCalendar from '../components/DateCalendar'
 import Origin from '../components/Origin'
@@ -22,16 +22,17 @@ const Booking = () => {
       <View style={containers.container}>
         <TouchableOpacity
           onPress={
-            flightBooking[0].count === 0 ?
-              (() => navigation.navigate('Login')) :
-              (() =>
-                store.dispatch({
-                  type: 'MINUS_COUNT',
-                  payload: {
-                    counter: counter
-                  }
-                }))
-          }>
+            flightBooking[0].count === 0
+              ? () => navigation.navigate('Login')
+              : () =>
+                  store.dispatch({
+                    type: 'MINUS_COUNT',
+                    payload: {
+                      counter: counter
+                    }
+                  })
+          }
+        >
           <Ionicons
             name='chevron-back-outline'
             size={30}
@@ -42,18 +43,45 @@ const Booking = () => {
 
         <FlightInfo />
 
-        {flightBooking[0].count === 0 ? <Origin /> :
-          flightBooking[0].count === 1 ? <Destination /> :
-            flightBooking[0].count === 2 ? <DateCalendar /> :
-              flightBooking[0].count === 3 ? <Passengers /> : <BookingTitle text='Your request was received' />}
+        {flightBooking[0].count === 0 ? (
+          <Origin />
+        ) : flightBooking[0].count === 1 ? (
+          <Destination />
+        ) : flightBooking[0].count === 2 ? (
+          <DateCalendar />
+        ) : flightBooking[0].count === 3 ? (
+          <Passengers />
+        ) : (
+          <BookingTitle text='Your request was received' />
+        )}
 
-        {flightBooking[0].count === 4 ? <CustomButtom style={controls.button} text='Finish' handlePress={() => navigation.navigate('Login')} /> :
-          <CustomButtom style={controls.button} text='Next' handlePress={() => store.dispatch({
-            type: 'PLUS_COUNT',
-            payload: {
-              counter: counter
+        {flightBooking[0].count === 4 ? (
+          <CustomButtom
+            style={controls.button}
+            text='Finish'
+            handlePress={() =>
+              store.dispatch({
+                type: 'CREATE_RESERVATION',
+                payload: {
+                  reservation: flightBooking
+                }
+              })
             }
-          })} />}
+          />
+        ) : (
+          <CustomButtom
+            style={controls.button}
+            text='Next'
+            handlePress={() =>
+              store.dispatch({
+                type: 'PLUS_COUNT',
+                payload: {
+                  counter: counter
+                }
+              })
+            }
+          />
+        )}
       </View>
     </View>
   )
