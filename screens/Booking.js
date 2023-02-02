@@ -15,7 +15,21 @@ import BookingTitle from '../components/BookingTitle'
 const Booking = () => {
   const navigation = useNavigation()
   const flightBooking = useSelector(state => state.flightInfo)
+  const userLogged = useSelector(state => state.userInformation)
+
+  // console.log(userLogged, 'userLogged>>>>>')
   const counter = 1
+
+  const handleCreateReservation = () => {
+    flightBooking[0].user = userLogged.email
+    store.dispatch({
+      type: 'CREATE_RESERVATION',
+      payload: {
+        reservation: flightBooking
+      
+      }
+    })
+  }
 
   return (
     <View style={containers.main}>
@@ -23,7 +37,7 @@ const Booking = () => {
         <TouchableOpacity
           onPress={
             flightBooking[0].count === 0
-              ? () => navigation.navigate('Login')
+              ? () => navigation.navigate('Flights')
               : () =>
                   store.dispatch({
                     type: 'MINUS_COUNT',
@@ -59,14 +73,7 @@ const Booking = () => {
           <CustomButtom
             style={controls.button}
             text='Finish'
-            handlePress={() =>
-              store.dispatch({
-                type: 'CREATE_RESERVATION',
-                payload: {
-                  reservation: flightBooking
-                }
-              })
-            }
+            handlePress={handleCreateReservation}
           />
         ) : (
           <CustomButtom

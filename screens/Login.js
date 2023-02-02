@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState} from 'react'
 import { Text, View, Alert, Button } from 'react-native'
 import { Linking } from 'react-native'
 import { Formik } from 'formik'
@@ -15,7 +15,7 @@ const Login = () => {
   const navigation = useNavigation()
 
   const validate = values => {
-    if (values.email === '' || values.password === '') {
+    if (values.email === '' || values.password === ''||values.email === undefined || values.password === undefined) {
       Alert.alert('Error', 'You must fill all the fields to continue')
     }
   }
@@ -38,6 +38,7 @@ const Login = () => {
       <Text style={texts.title}>Login</Text>
       <Button title='Prueba google' onPress={handleGoogle}></Button>
       <Formik
+       initialValues={{email: '', password: '' }}
         onSubmit={values => {
           validate(values)
           store.dispatch({
@@ -46,6 +47,9 @@ const Login = () => {
               user: values
             }
           })
+
+          values.email=''
+          values.password=''
           // Keyboard.dismiss()
         }}
       >

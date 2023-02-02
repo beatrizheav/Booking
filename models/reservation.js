@@ -9,7 +9,8 @@ const ReservationSchema = new Schema({
   originCapital: String,
   originCode: String,
   date: Date,
-  passengers: Number
+  passengers: Number,
+  user:String
 })
 
 const Reservation = mongoose.model('reservations', ReservationSchema)

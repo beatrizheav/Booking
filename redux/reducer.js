@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { useNavigation } from '@react-navigation/native'
+import { navigationRef } from '../navigation/navigationRef'
+import store from './store'
 
 export const addDestination = {
   type: 'ADD_DESTINATION'
@@ -33,12 +34,24 @@ export const loginUser = {
   type: 'LOGIN_USER'
 }
 
+export const logoutUser = {
+  type: 'LOGOUT_USER'
+}
+
 export const createReservation = {
   type: 'CREATE_RESERVATION'
 }
 
 export const getReservation = {
   type: 'GET_RESERVATION'
+}
+
+export const updateUserLogged = {
+  type: 'UPDATE_CURRENT_LOGED_USER'
+}
+
+export const updateUserFlights = {
+  type: 'UPDATE_USER_FLIGHTS'
 }
 
 const initialState = [
@@ -55,7 +68,8 @@ const initialState = [
     },
     date: '',
     passengers: '',
-    count: 0
+    count: 0,
+    user: ''
   }
 ]
 
@@ -72,7 +86,7 @@ const user = [
 export const userInformationReducer = (state = user, action) => {
   switch (action.type) {
     case 'CREATE_USER':
-      console.log('estoy en el reducer')
+      console.log('estoy en el reducer signup')
       const newStateUser = [...state]
       newStateUser[0].name = action.payload.user.name
       newStateUser[0].email = action.payload.user.email
@@ -103,37 +117,52 @@ export const userInformationReducer = (state = user, action) => {
           console.log('ERROR', error)
         }
       }
-      createUserInDB(object)
+      createUserInDB(objectToCreate)
       return newStateUser
 
     case 'LOGIN_USER':
-      const navigation = useNavigation()
+      let currentLogedUser = [...state]
+
       const email = action.payload.user.email
       const objectToSearch = {
         email: action.payload.user.email,
         password: action.payload.user.password
       }
-      console.log('estoy en el reducer login', objectToSearch)
 
       async function searchUserInDB (objectToSearch) {
-        console.log('estoy en la funcion')
         try {
           const response = await axios.post(
             'http://192.168.11.100:3000/api/users/login',
             objectToSearch
           )
-          console.log('responseFront:', response.data)
+
           if (response.data.status === 'FAILED') {
             alert(response.data.message)
           } else if (response.data.status === 'OK') {
-            //ir a booking
+            currentLogedUser = response.data.user
+            console.log('CURRENT', response.data.user)
+            navigationRef.navigate('Flights')
+            store.dispatch({
+              type: 'UPDATE_CURRENT_LOGED_USER',
+              payload: {
+                current: currentLogedUser
+              }
+            })
           }
         } catch (error) {
           console.log('ERROR', error)
         }
       }
       searchUserInDB(objectToSearch)
-      const newLoginUser = [...state]
+      return state
+
+    case 'UPDATE_CURRENT_LOGED_USER':
+      console.log('action.payload.current', action.payload.current)
+      return action.payload.current
+
+    // case 'LOGOUT_USER':
+    //   console.log('action.payload.current', action.payload.current)
+    //   return action.payload.user
     default:
       return state
   }
@@ -177,6 +206,7 @@ export const flightInformationReducer = (state = initialState, action) => {
 
     case 'CREATE_RESERVATION':
       const reservationToCreate = action.payload.reservation
+      console.log('reservationToCreate', reservationToCreate)
 
       async function createReservation (reservationToCreate) {
         try {
@@ -194,6 +224,7 @@ export const flightInformationReducer = (state = initialState, action) => {
       }
 
       createReservation(reservationToCreate)
+      return reservationToCreate
 
     default:
       return state
@@ -204,18 +235,45 @@ const flightList = []
 export const flightsReducer = (state = flightList, action) => {
   switch (action.type) {
     case 'GET_RESERVATION':
-      const flightsState = [...state]
-      console.log('Estoy en get reservation')
-      axios
-        .get('http://192.168.11.100:3000/api/users/reservations')
-        .then(result => {
-          console.log('RESULT_FLIGHTS')
-          flightsState.push(result.data)
-        })
+      const flightsState = []
 
-      console.log('flightsState', flightsState)
+      const user = { email: action.payload.user }
+      console.log('action.payload.user', action.payload.user)
+      console.log('Estoy en get reservation', user.email)
 
-      return flightsState
+      async function searchReservations (user) {
+        try {
+          const response = await axios.post(
+            'http://192.168.11.100:3000/api/users/reservations/get',
+            user
+          )
+          console.log('responseFront:', response.data.flights)
+          // flightsState?.map(flight=>console.log("QQQQQQQ",flight))
+          flightsState.push(response.data.flights)
+          if (flightsState.length) {
+            store.dispatch({
+              type: 'UPDATE_USER_FLIGHTS',
+              payload: {
+                flights: flightsState
+              }
+            })
+          }
+
+          if (response.data.status) {
+            alert(response.data.message)
+          }
+        } catch (error) {
+          console.log('ERROR', error)
+        }
+      }
+      searchReservations(user)
+      console.log('flightsStateReducer', flightsState)
+
+      return state
+
+    case 'UPDATE_USER_FLIGHTS':
+      console.log('action.payload.flights', action.payload.flights)
+      return action.payload.flights
 
     default:
       return state

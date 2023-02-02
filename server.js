@@ -67,14 +67,21 @@ const validateEmail = email => {
 
 //To signUp:
 app.post('/api/users', (request, response) => {
-  console.log('toy en el server')
+  console.log('toy en el server signup')
   console.log('requestBody', request.body)
   let name = request.body.name
   let email = request.body.email
   let password = request.body.password
 
-  if (name === '' || email === '' || password === '') {
-    response.status(404).json({
+  if (
+    name === '' ||
+    email === '' ||
+    password === '' ||
+    name === undefined ||
+    email === undefined ||
+    password === undefined
+  ) {
+    response.json({
       status: 'FAILED',
       message: 'Empty input fields!'
     })
@@ -141,7 +148,12 @@ app.post('/api/users/login', (request, response) => {
   let password = request.body.password
   console.log(email, password)
 
-  if (email === '' || password === '') {
+  if (
+    email === '' ||
+    password === '' ||
+    email === undefined ||
+    password === undefined
+  ) {
     response.json({
       status: 'FAILED',
       message: 'You must fill all the fields to continue'
@@ -157,7 +169,8 @@ app.post('/api/users/login', (request, response) => {
         if (user.password === password) {
           response.json({
             status: 'OK',
-            message: 'Successful login'
+            message: 'Successful login',
+            user:user
           })
         } else {
           response.json({
@@ -178,8 +191,6 @@ app.post('/api/users/login', (request, response) => {
 //To create a new reservation
 app.post('/api/users/reservations', (request, response) => {
   let reservation = request.body
-  console.log('SERVER RESERVATIONS', reservation[0])
-  console.log('RESERVATION', reservation[0].destination.country)
 
   let destinationCountry = reservation[0].destination.country
   let destinationCapital = reservation[0].destination.capital
@@ -189,6 +200,7 @@ app.post('/api/users/reservations', (request, response) => {
   let originCode = reservation[0].origin.code
   let date = reservation[0].date
   let passengers = reservation[0].passengers
+  let user= reservation[0].user
 
   const newReservation = new Reservation({
     destinationCountry,
@@ -198,7 +210,8 @@ app.post('/api/users/reservations', (request, response) => {
     originCapital,
     originCode,
     date,
-    passengers
+    passengers,
+    user
   })
 
   if (
@@ -209,7 +222,8 @@ app.post('/api/users/reservations', (request, response) => {
     originCapital === '' ||
     originCode === '' ||
     date === '' ||
-    passengers === ''
+    passengers === '' ||
+    user === ''
   ) {
     response.json({
       status: 'FAILED',
@@ -258,6 +272,72 @@ app.get('/api/users/reservations', (request, response) => {
     response.send(flights)
   })
 })
+
+//To retrieve all reservations from a certain user:
+app.post('/api/users/reservations/get', (request, response) => {
+  console.log("REQUESTzzzzz",request.body.email)
+  const email=request.body.email
+
+  Reservation.find({ user:email }, (error, reservation) => {
+    console.log("email si",email)
+    if (error) {
+      response.json({
+        status: 'FAILED',
+        message: 'Internal error'
+      })
+    } else if (reservation.length) {
+      console.log("reservation si",reservation)
+      response.json({
+        status: 'OK',
+        message: `you have ${reservation.length} reservations`,
+        flights:reservation
+      })
+    } else {
+      console.log("reservation no",reservation)
+      response.json({
+        status: 'FAILED',
+        message: `You dont have any reservation. Please create a new one!`
+      })
+    }
+  })
+
+
+
+
+
+
+
+
+
+
+
+  // Reservation.find({}).then(reservations => {
+  //   const flights = reservations
+  //   console.log(flights, 'tosee__')
+  //   response.send(flights)
+  // })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Google:
 
