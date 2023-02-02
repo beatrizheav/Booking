@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const passport = require('passport')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
@@ -8,6 +9,8 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 const PORT = 3000
+require('./google-auth/passport')(passport)
+
 mongoose.set('strictQuery', true)
 const User = require('./models/user')
 const Country = require('./models/countries')
@@ -170,8 +173,6 @@ app.post('/api/users/login', (request, response) => {
       }
     })
   }
-
- 
 })
 
 //To create a new reservation
@@ -252,10 +253,21 @@ app.post('/api/users/reservations', (request, response) => {
 //To retrieve all reservations:
 app.get('/api/users/reservations', (request, response) => {
   Reservation.find({}).then(reservations => {
-    const flights = reservations;
-    console.log(flights, "tosee__");
-    response.send(flights);
-  });
-  
+    const flights = reservations
+    console.log(flights, 'tosee__')
+    response.send(flights)
+  })
 })
 
+//Google:
+
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
+
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/')
+  }
+)
