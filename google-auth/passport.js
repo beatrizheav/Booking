@@ -6,7 +6,7 @@ module.exports = passport => {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://192.168.11.100:3000/auth/google/callback'
+        callbackURL: 'https://tame-red-dugong.cyclic.app/auth/google/callback'
       },
       function (accessToken, refreshToken, profile, done) {
         console.log("Tryong to access gogole",profile)

@@ -1,1 +1,1 @@
-GET http://localhost:3000/api/users
+GET https://tame-red-dugong.cyclic.app/api/users

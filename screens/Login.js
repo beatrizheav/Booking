@@ -21,7 +21,7 @@ const Login = () => {
   }
 
   const handleGoogle = async () => {
-    Linking.openURL('http://192.168.11.100:3000/auth/google');
+    Linking.openURL('https://tame-red-dugong.cyclic.app/auth/google');
     console.log('estoy en la GOOGLR')
     // try {
     //   const response = await axios.get(

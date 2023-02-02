@@ -101,7 +101,7 @@ export const userInformationReducer = (state = user, action) => {
         console.log('estoy en la funcion')
         try {
           const response = await axios.post(
-            'http://192.168.11.100:3000/api/users',
+            'https://tame-red-dugong.cyclic.app/api/users',
             objectToCreate
           )
           console.log('responseFront:', response.data)
@@ -132,7 +132,7 @@ export const userInformationReducer = (state = user, action) => {
       async function searchUserInDB (objectToSearch) {
         try {
           const response = await axios.post(
-            'http://192.168.11.100:3000/api/users/login',
+            'https://tame-red-dugong.cyclic.app/api/users/login',
             objectToSearch
           )
 
@@ -211,7 +211,7 @@ export const flightInformationReducer = (state = initialState, action) => {
       async function createReservation (reservationToCreate) {
         try {
           const response = await axios.post(
-            'http://192.168.11.100:3000/api/users/reservations',
+            'https://tame-red-dugong.cyclic.app/api/users/reservations',
             reservationToCreate
           )
           console.log('responseFront:', response.data)
@@ -244,7 +244,7 @@ export const flightsReducer = (state = flightList, action) => {
       async function searchReservations (user) {
         try {
           const response = await axios.post(
-            'http://192.168.11.100:3000/api/users/reservations/get',
+            'https://tame-red-dugong.cyclic.app/api/users/reservations/get',
             user
           )
           console.log('responseFront:', response.data.flights)
