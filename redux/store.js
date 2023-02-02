@@ -1,7 +1,15 @@
 import { createStore, combineReducers } from 'redux'
-import { flightInformationReducer,userInformationReducer } from './reducer'
+import {
+  flightInformationReducer,
+  userInformationReducer,
+  flightsReducer
+} from './reducer'
 
-const rootReducer = combineReducers({ flightInfo: flightInformationReducer, userInformation: userInformationReducer })
+const rootReducer = combineReducers({
+  flightInfo: flightInformationReducer,
+  userInformation: userInformationReducer,
+  flightsList: flightsReducer
+})
 
 const store = createStore(rootReducer)
 export default store

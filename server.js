@@ -171,34 +171,7 @@ app.post('/api/users/login', (request, response) => {
     })
   }
 
-  // if (email === '' || password === '') {
-  //   response.status(404).json({
-  //     status: 'FAILED',
-  //     message: 'Empty input fields!'
-  //   })
-  // } else if (password.length < 8) {
-  //   response.json({
-  //     status: 'FAILED',
-  //     message: 'Password is too short'
-  //   })
-  // } else {
-  //   User.find({ email }).then(result => {
-  //     console.log('result', result)
-
-  //     if (result.length) {
-  //       response.json({
-  //         status: 'OK',
-  //         message: 'Login correct'
-  //       })
-  //     } else {
-  //       response.json({
-  //         status: 'FAILED',
-  //         message: 'Login incoprrec',
-  //         data: result
-  //       })
-  //     }
-  //   })
-  // }
+ 
 })
 
 //To create a new reservation
@@ -276,4 +249,13 @@ app.post('/api/users/reservations', (request, response) => {
   }
 })
 
-//To retrieve reservations from a certain user:
+//To retrieve all reservations:
+app.get('/api/users/reservations', (request, response) => {
+  Reservation.find({}).then(reservations => {
+    const flights = reservations;
+    console.log(flights, "tosee__");
+    response.send(flights);
+  });
+  
+})
+

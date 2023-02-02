@@ -37,6 +37,10 @@ export const createReservation = {
   type: 'CREATE_RESERVATION'
 }
 
+export const getReservation = {
+  type: 'GET_RESERVATION'
+}
+
 const initialState = [
   {
     destination: {
@@ -181,16 +185,37 @@ export const flightInformationReducer = (state = initialState, action) => {
             reservationToCreate
           )
           console.log('responseFront:', response.data)
-          if(response.data.status){
+          if (response.data.status) {
             alert(response.data.message)
           }
-          
         } catch (error) {
           console.log('ERROR', error)
         }
       }
 
       createReservation(reservationToCreate)
+
+    default:
+      return state
+  }
+}
+
+const flightList = []
+export const flightsReducer = (state = flightList, action) => {
+  switch (action.type) {
+    case 'GET_RESERVATION':
+      const flightsState = [...state]
+      console.log('Estoy en get reservation')
+      axios
+        .get('http://192.168.11.100:3000/api/users/reservations')
+        .then(result => {
+          console.log('RESULT_FLIGHTS')
+          flightsState.push(result.data)
+        })
+
+      console.log('flightsState', flightsState)
+
+      return flightsState
 
     default:
       return state
