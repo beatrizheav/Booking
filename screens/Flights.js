@@ -12,6 +12,16 @@ const Flights = () => {
 
   console.log('flightsList_-__', flightsList[0])
   console.log('userLogged-__', userLogged.email)
+
+  componentDidMount = () => {
+    store.dispatch({
+      type: 'GET_RESERVATION',
+      payload: {
+        user: userLogged.email
+      }
+    })
+  }
+
   return (
     <View style={containers.main}>
       <Text style={texts.title}>My Flights</Text>
@@ -20,7 +30,7 @@ const Flights = () => {
           title='CREATE NEW RESERVATION'
           onPress={() => navigation.navigate('Booking')}
         ></Button>
-        <Button
+        {/* <Button
           title='VER MIS RESERVAS'
           onPress={() =>
             store.dispatch({
@@ -30,7 +40,7 @@ const Flights = () => {
               }
             })
           }
-        ></Button>
+        ></Button> */}
         <View>
           <MyFligths />
         </View>

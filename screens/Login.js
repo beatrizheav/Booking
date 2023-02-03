@@ -75,6 +75,7 @@ const Login = () => {
 
   return (
     <View style={containers.container}>
+      <Text>hola</Text>
       <Text style={texts.title}>Login</Text>
 
       <Formik
