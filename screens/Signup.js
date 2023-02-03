@@ -61,7 +61,7 @@ const SignUp = () => {
         >
           {({ handleChange, values, errors, handleSubmit }) => (
             <View style={containers.screenContainer}>
-            <Button title='Prueba signup google' onPress={handleGoogle}></Button>
+            
               <Text style={texts.titlesText}>Username</Text>
               <CustomInput
                 handleChange={handleChange('name')}
@@ -122,7 +122,7 @@ const SignUp = () => {
                   <CustomButton text='Sign Up' disabled={true} icon={false} handlePress={handleSubmit} />
                 }
                 <Text style={texts.accountText}>or</Text>
-                <CustomButton text='Sign Up with Google' disabled={false} icon={true} handlePress={()=> navigation.navigate('Flights')} />
+                <CustomButton text='Sign Up with Google' disabled={false} icon={true} handlePress={handleGoogle} />
 
                 <View style={containers.footerContainer}>
                   <Text style={texts.accountText}>

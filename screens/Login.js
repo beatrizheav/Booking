@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <View style={containers.container}>
       <Text style={texts.title}>Login</Text>
-      <Button title='Prueba google' onPress={handleGoogle}></Button>
+    
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values => {
@@ -111,7 +111,7 @@ const Login = () => {
                 text='Sign In with Google'
                 disabled={false}
                 icon={true}
-                handlePress={() => navigation.navigate('Booking')}
+                handlePress={handleGoogle}
               />
 
               <View style={containers.footerContainer}>
