@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { navigationRef } from '../navigation/navigationRef'
 import store from './store'
+import { AsyncLocalStorage } from '@react-native-async-storage/async-storage'
 
 export const addDestination = {
   type: 'ADD_DESTINATION'

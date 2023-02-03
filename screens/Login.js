@@ -15,23 +15,23 @@ const Login = () => {
   const [inputText, setInputText] = useState('')
   const navigation = useNavigation()
 
-  useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange)
-    return () => {
-      AppState.removeEventListener('change', handleAppStateChange)
-    }
-  }, [])
-  console.log(appState, 'appStateFuera')
-  const handleAppStateChange = nextAppState => {
-    console.log(nextAppState, 'nextAppState')
-    setAppState(nextAppState)
-    console.log(appState, 'appStateDentro')
-    if (nextAppState === 'active') {
-      // the app has returned to the foreground after the user logged in
-      // you can perform any necessary actions here, such as fetching the user's updated profile
-      alert('Successful login with Google')
-    }
-  }
+  // useEffect(() => {
+  //   AppState.addEventListener('change', handleAppStateChange)
+  //   return () => {
+  //     AppState.removeEventListener('change', handleAppStateChange)
+  //   }
+  // }, [])
+  // console.log(appState, 'appStateFuera')
+  // const handleAppStateChange = nextAppState => {
+  //   console.log(nextAppState, 'nextAppState')
+  //   setAppState(nextAppState)
+  //   console.log(appState, 'appStateDentro')
+  //   if (nextAppState === 'active') {
+  //     // the app has returned to the foreground after the user logged in
+  //     // you can perform any necessary actions here, such as fetching the user's updated profile
+  //     alert('Successful login with Google')
+  //   }
+  // }
 
   const validate = values => {
     if (
@@ -47,6 +47,12 @@ const Login = () => {
   const handleGoogle = async () => {
     Linking.openURL('https://tame-red-dugong.cyclic.app/auth/google')
     console.log('estoy en la GOOGLR')
+
+    setTimeout(()=>{
+      axios.get('https://tame-red-dugong.cyclic.app/successful').then(response=>console.log("RESPONSEFRONT",response.data))
+      console.log('estoy en la settiemour')
+    },5000)
+   
     // try {
     //   const response = await axios.get(
     //     'https://tame-red-dugong.cyclic.app/auth/google'
@@ -55,12 +61,22 @@ const Login = () => {
     // } catch (error) {
     //   console.log('ERROR', error)
     // }
+
+    // axios
+    //   .get('https://tame-red-dugong.cyclic.app/auth/google/callback')
+    //   .then(response => {
+    //     const { redirect } = response.data
+    //     Linking.openURL(redirect)
+    //   })
+    //   .catch(error => {
+    //     console.error(error)
+    //   })
   }
 
   return (
     <View style={containers.container}>
       <Text style={texts.title}>Login</Text>
-    
+
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values => {
