@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { navigationRef } from '../navigation/navigationRef'
 
-import { AsyncStorage } from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const addDestination = {
   type: 'ADD_DESTINATION'
@@ -84,6 +84,14 @@ const user = [
   }
 ]
 
+const storeData = async (data, key) => {
+  try {
+    await AsyncStorage.setItem(key, JSON.stringify(data))
+  } catch (error) {
+    console.error('Error storing data', error)
+  }
+}
+
 export const userInformationReducer = (state = user, action) => {
   switch (action.type) {
     case 'CREATE_USER':
@@ -140,11 +148,23 @@ export const userInformationReducer = (state = user, action) => {
           if (response.data.status === 'FAILED') {
             alert(response.data.message)
           } else if (response.data.status === 'OK') {
-            currentLogedUser = response.data.user
-            console.log('CURRENT', response.data.user)
-            AsyncStorage.setItem('current_user', response.data.user)
-            navigationRef.navigate('Flights')
-           
+
+            const activeUser = response.data.user
+            const activeUserString = JSON.stringify(activeUser)
+
+            AsyncStorage.setItem('current_user', activeUserString)
+              .then(() => {
+
+                return AsyncStorage.getItem('current_user')
+              })
+              .then(currentUserString => {
+
+                alert('Successfully logged in')
+                navigationRef.navigate('Flights')
+              })
+              .catch(error => {
+                console.error(error)
+              })
           }
         } catch (error) {
           console.log('ERROR', error)
@@ -153,7 +173,6 @@ export const userInformationReducer = (state = user, action) => {
       searchUserInDB(objectToSearch)
       return state
 
-    
     default:
       return state
   }
@@ -242,8 +261,20 @@ export const flightsReducer = (state = flightList, action) => {
           // flightsState?.map(flight=>console.log("QQQQQQQ",flight))
           flightsState.push(response.data.flights)
           if (flightsState.length) {
-            AsyncStorage.setItem('user_flights', flightsState)
-            alert('data saved')
+            const userFlights = flightsState
+            const userFlightsString = JSON.stringify(flightsState)
+
+            AsyncStorage.setItem('current_user_flights', userFlightsString)
+              .then(() => {
+                console.log('Data successfully saved')
+                return AsyncStorage.getItem('current_user_flights')
+              })
+              .then(currentUserFlights => {
+               
+              })
+              .catch(error => {
+                console.error(error)
+              })
           }
 
           if (response.data.status) {

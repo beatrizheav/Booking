@@ -11,17 +11,37 @@ import Destination from '../components/Destination'
 import store from '../redux/store'
 import { useSelector } from 'react-redux'
 import BookingTitle from '../components/BookingTitle'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useState, useEffect } from 'react'
+
 
 const Booking = () => {
   const navigation = useNavigation()
   const flightBooking = useSelector(state => state.flightInfo)
-  const userLogged = useSelector(state => state.userInformation)
 
-  // console.log(userLogged, 'userLogged>>>>>')
+  const [parsedCurrentUser, setParsedCurrentUser] = useState(null)
+
+  useEffect(() => {
+    getCurrentUser()
+  }, [])
+
+  const getCurrentUser = async () => {
+    try {
+      const currentUser = await AsyncStorage.getItem('current_user')
+      setParsedCurrentUser(JSON.parse(currentUser))
+    } catch (e) {
+      // error reading value
+    }
+  }
+  
+
+
   const counter = 1
 
   const handleCreateReservation = () => {
-    flightBooking[0].user = userLogged.email
+    getCurrentUser()
+    console.log("LACREACIONXDDDDD",parsedCurrentUser)
+    flightBooking[0].user = parsedCurrentUser.email
     store.dispatch({
       type: 'CREATE_RESERVATION',
       payload: {
