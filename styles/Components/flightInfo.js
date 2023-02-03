@@ -23,14 +23,14 @@ export const containers = StyleSheet.create({
   placeContainerL: {
     justifyContent: 'flex-start',
     borderBottomWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#CECECE',
     width: '50%',
     //backgroundColor:'yellow',
   },
   placeContainerR: {
     justifyContent: 'flex-end',
     borderBottomWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#CECECE',
     alignItems: 'flex-end',
     width: '50%'
   },
