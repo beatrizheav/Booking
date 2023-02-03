@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { navigationRef } from '../navigation/navigationRef'
-import store from './store'
-import { AsyncLocalStorage } from '@react-native-async-storage/async-storage'
+
+import { AsyncStorage } from '@react-native-async-storage/async-storage'
 
 export const addDestination = {
   type: 'ADD_DESTINATION'
@@ -142,13 +142,9 @@ export const userInformationReducer = (state = user, action) => {
           } else if (response.data.status === 'OK') {
             currentLogedUser = response.data.user
             console.log('CURRENT', response.data.user)
+            AsyncStorage.setItem('current_user', response.data.user)
             navigationRef.navigate('Flights')
-            store.dispatch({
-              type: 'UPDATE_CURRENT_LOGED_USER',
-              payload: {
-                current: currentLogedUser
-              }
-            })
+           
           }
         } catch (error) {
           console.log('ERROR', error)
@@ -157,13 +153,7 @@ export const userInformationReducer = (state = user, action) => {
       searchUserInDB(objectToSearch)
       return state
 
-    case 'UPDATE_CURRENT_LOGED_USER':
-      console.log('action.payload.current', action.payload.current)
-      return action.payload.current
-
-    // case 'LOGOUT_USER':
-    //   console.log('action.payload.current', action.payload.current)
-    //   return action.payload.user
+    
     default:
       return state
   }
@@ -252,12 +242,8 @@ export const flightsReducer = (state = flightList, action) => {
           // flightsState?.map(flight=>console.log("QQQQQQQ",flight))
           flightsState.push(response.data.flights)
           if (flightsState.length) {
-            store.dispatch({
-              type: 'UPDATE_USER_FLIGHTS',
-              payload: {
-                flights: flightsState
-              }
-            })
+            AsyncStorage.setItem('user_flights', flightsState)
+            alert('data saved')
           }
 
           if (response.data.status) {
