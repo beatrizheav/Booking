@@ -3,7 +3,7 @@ import {
   Text,
   View,
   ScrollView,
-  Alert
+  Alert, Button,Linking
 } from 'react-native'
 import { Formik } from 'formik'
 import Checkbox from 'expo-checkbox'
@@ -29,6 +29,20 @@ const SignUp = () => {
     }
   }
 
+  const handleGoogle = async () => {
+    Linking.openURL('https://tame-red-dugong.cyclic.app/auth/google')
+    console.log('estoy en la GOOGLR signup')
+    // try {
+    //   const response = await axios.get(
+    //     'https://tame-red-dugong.cyclic.app/auth/google'
+    //   )
+    //   console.log('responseGOOGLR:', response.data)
+    // } catch (error) {
+    //   console.log('ERROR', error)
+    // }
+  }
+
+
   return (
     <View style={containers.container}>
       <ScrollView>
@@ -47,7 +61,7 @@ const SignUp = () => {
         >
           {({ handleChange, values, errors, handleSubmit }) => (
             <View style={containers.screenContainer}>
-
+            <Button title='Prueba signup google' onPress={handleGoogle}></Button>
               <Text style={texts.titlesText}>Username</Text>
               <CustomInput
                 handleChange={handleChange('name')}

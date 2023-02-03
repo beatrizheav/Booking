@@ -1,6 +1,6 @@
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import { Text, View, Alert, Button } from 'react-native'
-import { Linking } from 'react-native'
+import { AppState, Linking } from 'react-native'
 import { Formik } from 'formik'
 import { CustomInput } from '../components/CustomInput'
 import { controls, containers, texts } from '../styles/Screens/login.js'
@@ -11,17 +11,41 @@ import store from '../redux/store'
 import axios from 'axios'
 
 const Login = () => {
+  const [appState, setAppState] = useState(AppState.currentState)
   const [inputText, setInputText] = useState('')
   const navigation = useNavigation()
 
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange)
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange)
+    }
+  }, [])
+  console.log(appState, 'appStateFuera')
+  const handleAppStateChange = nextAppState => {
+    console.log(nextAppState, 'nextAppState')
+    setAppState(nextAppState)
+    console.log(appState, 'appStateDentro')
+    if (nextAppState === 'active') {
+      // the app has returned to the foreground after the user logged in
+      // you can perform any necessary actions here, such as fetching the user's updated profile
+      alert('Successful login with Google')
+    }
+  }
+
   const validate = values => {
-    if (values.email === '' || values.password === ''||values.email === undefined || values.password === undefined) {
+    if (
+      values.email === '' ||
+      values.password === '' ||
+      values.email === undefined ||
+      values.password === undefined
+    ) {
       Alert.alert('Error', 'You must fill all the fields to continue')
     }
   }
 
   const handleGoogle = async () => {
-    Linking.openURL('https://tame-red-dugong.cyclic.app/auth/google');
+    Linking.openURL('https://tame-red-dugong.cyclic.app/auth/google')
     console.log('estoy en la GOOGLR')
     // try {
     //   const response = await axios.get(
@@ -38,7 +62,7 @@ const Login = () => {
       <Text style={texts.title}>Login</Text>
       <Button title='Prueba google' onPress={handleGoogle}></Button>
       <Formik
-       initialValues={{email: '', password: '' }}
+        initialValues={{ email: '', password: '' }}
         onSubmit={values => {
           validate(values)
           store.dispatch({
@@ -48,8 +72,8 @@ const Login = () => {
             }
           })
 
-          values.email=''
-          values.password=''
+          values.email = ''
+          values.password = ''
           // Keyboard.dismiss()
         }}
       >
