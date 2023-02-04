@@ -113,7 +113,7 @@ export const userInformationReducer = (state = user, action) => {
             'https://tame-red-dugong.cyclic.app/api/users',
             objectToCreate
           )
-          console.log('responseFront:', response.data)
+
           if (response.data.status) {
             console.log(
               response.data.message,
@@ -224,7 +224,7 @@ export const flightInformationReducer = (state = initialState, action) => {
             'https://tame-red-dugong.cyclic.app/api/users/reservations',
             reservationToCreate
           )
-          console.log('responseFront:', response.data)
+        
           if (response.data.status) {
             alert(response.data.message)
           }
@@ -257,7 +257,7 @@ export const flightsReducer = (state = flightList, action) => {
             'https://tame-red-dugong.cyclic.app/api/users/reservations/get',
             user
           )
-          console.log('responseFront:', response.data.flights)
+    
           // flightsState?.map(flight=>console.log("QQQQQQQ",flight))
           flightsState.push(response.data.flights)
           if (flightsState.length) {
