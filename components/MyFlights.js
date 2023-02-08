@@ -4,6 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from 'react'
 import store from '../redux/store'
+import CustomButton from './CustomButton'
 
 const MyFligths = () => {
   const [parsedCurrentUser, setParsedCurrentUser] = useState(null)
@@ -63,7 +64,7 @@ const MyFligths = () => {
   return (
     <View style={containers.master}>
       <ScrollView >
-        <Button title='clickme 1 vez, sí sirvo xd' onPress={handlePress}></Button>
+        <CustomButton text='Ver mis vuelos' handlePress={handlePress}/>
 
         {flights?.map(flight => {
           return (
