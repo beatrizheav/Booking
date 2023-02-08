@@ -115,11 +115,8 @@ const Login = () => {
           setIsVisible(true)
             setTimeout(()=>{
               setIsVisible(false)
-            },2500)
-          // values.email = ''
-          // values.password = ''
-
-          // Keyboard.dismiss()
+            },20000)
+         
         }}
       >
         {({ handleChange, handleSubmit, values, errors }) => (

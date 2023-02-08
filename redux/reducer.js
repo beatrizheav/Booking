@@ -248,11 +248,12 @@ const flightList = []
 export const flightsReducer = (state = flightList, action) => {
   switch (action.type) {
     case 'GET_RESERVATION':
+      console.log("Get reservations")
       const flightsState = []
 
       const user = { email: action.payload.user }
       console.log('action.payload.user', action.payload.user)
-      console.log('Estoy en get reservation', user.email)
+     
 
       async function searchReservations (user) {
         try {
@@ -267,10 +268,10 @@ export const flightsReducer = (state = flightList, action) => {
             const userFlights = flightsState
             const userFlightsString = JSON.stringify(flightsState)
 
-            AsyncStorage.setItem('current_user_flights', userFlightsString)
+           await AsyncStorage.setItem('current_user_flights', userFlightsString)
               .then(() => {
-                console.log('Data successfully saved')
-                return AsyncStorage.getItem('current_user_flights')
+                console.log('Data successfully saved___')
+                //return AsyncStorage.getItem('current_user_flights')
               })
               .then(currentUserFlights => {})
               .catch(error => {
@@ -279,7 +280,8 @@ export const flightsReducer = (state = flightList, action) => {
           }
 
           if (response.data.status) {
-            alert(response.data.message)
+            // alert(response.data.message)
+            console.log("alert",response.data.message)
           }
         } catch (error) {
           console.log('ERROR', error)
