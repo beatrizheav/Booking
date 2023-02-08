@@ -1,7 +1,6 @@
 import { Text, View, Button, ScrollView, Alert } from 'react-native'
 import { containers, texts, graphics } from '../styles/Components/flightInfo'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from 'react'
 import store from '../redux/store'
@@ -14,7 +13,7 @@ const MyFligths = () => {
 
   useEffect(() => {
     getCurrentUser()
-   
+  
   }, [])
 
   const getCurrentUser = async () => {
@@ -63,8 +62,8 @@ const MyFligths = () => {
   }
 
   return (
-    <View>
-      <ScrollView>
+    <View style={{paddingBottom: 100}}>
+      <ScrollView >
         <Button title='clickme 2 veces o no sirvo' onPress={handlePress}></Button>
 
         {flights?.map(flight => {

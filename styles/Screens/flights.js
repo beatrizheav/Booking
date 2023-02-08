@@ -3,7 +3,7 @@ import { colorsTheme } from '../colorsTheme'
 
 export const containers = StyleSheet.create({
   main: {
-    marginTop: 40,
+    marginVertical: 40,
     marginHorizontal: 20
   },
   infoContainer: {
