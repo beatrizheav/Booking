@@ -13,7 +13,6 @@ const MyFligths = () => {
 
   useEffect(() => {
     getCurrentUser()
-
   }, [])
 
   const getCurrentUser = async () => {
@@ -51,30 +50,20 @@ const MyFligths = () => {
     }
   }
 
-  // const handlePress = () => {
-  //   getCurrentUserFlights().then(data => {
-  //     vuelos = data[0]
-
-  //     console.log('vuelos', vuelos)
-  //     setFlights(prev => vuelos)
-  //     console.log('flights', flights)
-  //   })
-  // }
-
-  useEffect(() => {
+  const handlePress = () => {
     getCurrentUserFlights().then(data => {
       vuelos = data[0]
 
       console.log('vuelos', vuelos)
       setFlights(prev => vuelos)
-      console.log('flights', flights)
+      // console.log('flights', flights)
     })
-  },[vuelos])
+  }
 
   return (
     <View style={containers.master}>
       <ScrollView >
-        {/* <Button title='clickme 1 vez, sí sirvo xd' onPress={handlePress}></Button> */}
+        <Button title='clickme 1 vez, sí sirvo xd' onPress={handlePress}></Button>
 
         {flights?.map(flight => {
           return (
