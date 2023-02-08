@@ -2,10 +2,12 @@ import { StyleSheet } from 'react-native'
 import { colorsTheme } from '../colorsTheme'
 
 export const containers = StyleSheet.create({
+  master :{
+    paddingBottom: 100
+  },
   main: {
-    //backgroundColor: 'yellow',
-    // width: '85%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderBottomWidth: 1
   },
   infoContainer: {
     display: 'flex',
@@ -43,7 +45,9 @@ export const containers = StyleSheet.create({
   datePassengersContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    marginTop: 10
   }
 })
 

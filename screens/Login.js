@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Text, View, Alert, Button, Modal,ActivityIndicator } from 'react-native'
+import { Text, View, Alert, Button, Modal, ActivityIndicator } from 'react-native'
 import { AppState, Linking } from 'react-native'
 import { Formik } from 'formik'
 import { CustomInput } from '../components/CustomInput'
@@ -80,7 +80,6 @@ const Login = () => {
 
   return (
     <View style={containers.container}>
-      <Text>hola</Text>
       <Text style={texts.title}>Login</Text>
 
       <Modal
@@ -104,7 +103,7 @@ const Login = () => {
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values => {
-         
+
           validate(values)
           store.dispatch({
             type: 'LOGIN_USER',
@@ -113,10 +112,10 @@ const Login = () => {
             }
           })
           setIsVisible(true)
-            setTimeout(()=>{
-              setIsVisible(false)
-            },20000)
-         
+          setTimeout(() => {
+            setIsVisible(false)
+          }, 20000)
+
         }}
       >
         {({ handleChange, handleSubmit, values, errors }) => (

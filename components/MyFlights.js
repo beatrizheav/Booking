@@ -13,7 +13,7 @@ const MyFligths = () => {
 
   useEffect(() => {
     getCurrentUser()
-  
+
   }, [])
 
   const getCurrentUser = async () => {
@@ -51,63 +51,70 @@ const MyFligths = () => {
     }
   }
 
-  const handlePress=()=>{
+  // const handlePress = () => {
+  //   getCurrentUserFlights().then(data => {
+  //     vuelos = data[0]
+
+  //     console.log('vuelos', vuelos)
+  //     setFlights(prev => vuelos)
+  //     console.log('flights', flights)
+  //   })
+  // }
+
+  useEffect(() => {
     getCurrentUserFlights().then(data => {
       vuelos = data[0]
 
       console.log('vuelos', vuelos)
-      setFlights(prev=>vuelos)
+      setFlights(prev => vuelos)
       console.log('flights', flights)
     })
-  }
+  },[vuelos])
 
   return (
-    <View style={{paddingBottom: 100}}>
+    <View style={containers.master}>
       <ScrollView >
-        <Button title='clickme 2 veces o no sirvo' onPress={handlePress}></Button>
+        {/* <Button title='clickme 1 vez, sí sirvo xd' onPress={handlePress}></Button> */}
 
         {flights?.map(flight => {
-              return (
-                <View key={flight._id}style={[containers.main, { borderBottomWidth: 1 }]}>
-                  <View style={containers.infoContainer}>
-                    <View style={containers.placeContainerL}>
-                      <Text style={texts.cityText}>{flight.originCode}</Text>
-                      <Text style={texts.countryText}>
-                        {flight.originCountry}
-                      </Text>
-                    </View>
-                    <View style={containers.iconContainer}>
-                      <Ionicons
-                        name='airplane'
-                        size={24}
-                        color='#5c6ef8'
-                        style={graphics.icon}
-                      />
-                    </View>
-                    <View style={containers.placeContainerR}>
-                      <Text style={texts.cityText}>
-                        {flight.destinationCode}
-                      </Text>
-                      <Text style={texts.countryText}>
-                        {flight.destinationCountry}
-                      </Text>
-                    </View>
-                  </View>
-                  <View
-                    style={[
-                      containers.datePassengersContainer,
-                      { marginBottom: 20, marginTop: 10 }
-                    ]}
-                  >
-                    <Text style={texts.dateText}>{flight.date}</Text>
-                    <Text style={texts.dateText}>
-                      {flight.passengers} passengers
-                    </Text>
-                  </View>
+          return (
+            <View key={flight._id} style={containers.main}>
+              <View style={containers.infoContainer}>
+                <View style={containers.placeContainerL}>
+                  <Text style={texts.cityText}>{flight.originCode}</Text>
+                  <Text style={texts.countryText}>
+                    {flight.originCountry}
+                  </Text>
                 </View>
-              )
-            })
-          }
+                <View style={containers.iconContainer}>
+                  <Ionicons
+                    name='airplane'
+                    size={24}
+                    color='#5c6ef8'
+                    style={graphics.icon}
+                  />
+                </View>
+                <View style={containers.placeContainerR}>
+                  <Text style={texts.cityText}>
+                    {flight.destinationCode}
+                  </Text>
+                  <Text style={texts.countryText}>
+                    {flight.destinationCountry}
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={containers.datePassengersContainer}
+              >
+                <Text style={texts.dateText}>{flight.date}</Text>
+                <Text style={texts.dateText}>
+                  {flight.passengers} passengers
+                </Text>
+              </View>
+            </View>
+          )
+        })
+        }
       </ScrollView>
     </View>
   )

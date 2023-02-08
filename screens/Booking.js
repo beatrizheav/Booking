@@ -46,9 +46,9 @@ const Booking = () => {
       type: 'CREATE_RESERVATION',
       payload: {
         reservation: flightBooking
-      
       }
     })
+    navigation.navigate('Flights')
   }
 
   return (
