@@ -79,6 +79,9 @@ const SignUp = () => {
               }
             })
             setIsVisible(true)
+            setTimeout(()=>{
+              setIsVisible(false)
+            },3000)
           }}
         >
           {({ handleChange, values, errors, handleSubmit }) => (

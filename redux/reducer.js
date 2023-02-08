@@ -114,13 +114,20 @@ export const userInformationReducer = (state = user, action) => {
             objectToCreate
           )
 
-          if (response.data.status) {
+          if (response.data.status === 'OK') {
             console.log(
               response.data.message,
               'MESSAGE',
               newStateUser[0].status
             )
-            alert("_",response.data.message)
+            alert(response.data.message)
+            navigationRef.navigate('Login')
+          } else {
+            setTimeout(()=>{
+              alert(response.data.message)
+            },3000)
+         
+           
           }
         } catch (error) {
           console.log('ERROR', error)

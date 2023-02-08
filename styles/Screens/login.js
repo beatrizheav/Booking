@@ -47,7 +47,8 @@ export const containers = StyleSheet.create({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
+   
   },
   messageModal: {
     backgroundColor: '#23232B',
@@ -55,7 +56,8 @@ export const containers = StyleSheet.create({
     height: '20%',
     alignSelf: 'center',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    borderRadius:10
   },
   animation: {
     height: '70%',

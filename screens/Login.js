@@ -104,7 +104,7 @@ const Login = () => {
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values => {
-          setIsVisible(true)
+         
           validate(values)
           store.dispatch({
             type: 'LOGIN_USER',
@@ -112,9 +112,12 @@ const Login = () => {
               user: values
             }
           })
-        
-          values.email = ''
-          values.password = ''
+          setIsVisible(true)
+            setTimeout(()=>{
+              setIsVisible(false)
+            },2500)
+          // values.email = ''
+          // values.password = ''
 
           // Keyboard.dismiss()
         }}
