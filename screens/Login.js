@@ -13,6 +13,8 @@ import axios from 'axios'
 const Login = () => {
   const [appState, setAppState] = useState(AppState.currentState)
   const [inputText, setInputText] = useState('')
+  const [modalVisible, setModalVisible] = useState(false)
+
   const navigation = useNavigation()
 
   // useEffect(() => {
@@ -48,11 +50,11 @@ const Login = () => {
     Linking.openURL('https://tame-red-dugong.cyclic.app/auth/google')
     console.log('estoy en la GOOGLR')
 
-    setTimeout(()=>{
-      axios.get('https://tame-red-dugong.cyclic.app/successful').then(response=>console.log("RESPONSEFRONT",response.data))
+    setTimeout(() => {
+      axios.get('https://tame-red-dugong.cyclic.app/successful').then(response => console.log("RESPONSEFRONT", response.data))
       console.log('estoy en la settiemour')
-    },5000)
-   
+    }, 5000)
+
     // try {
     //   const response = await axios.get(
     //     'https://tame-red-dugong.cyclic.app/auth/google'
@@ -88,7 +90,7 @@ const Login = () => {
               user: values
             }
           })
-
+          setModalVisible(true)
           values.email = ''
           values.password = ''
           // Keyboard.dismiss()

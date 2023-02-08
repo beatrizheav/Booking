@@ -1,14 +1,15 @@
-import { Text, View, Button, ScrollView } from 'react-native'
+import { Text, View, Button, ScrollView, Alert } from 'react-native'
 import { containers, texts, graphics } from '../styles/Components/flightInfo'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from 'react'
 import store from '../redux/store'
+
 const MyFligths = () => {
   const [parsedCurrentUser, setParsedCurrentUser] = useState(null)
   const [parsedCurrentUserFlights, setParsedCurrentUserFlights] = useState(null)
- 
+
   const vuelos = []
   useEffect(() => {
     getCurrentUser()
@@ -42,9 +43,9 @@ const MyFligths = () => {
       setParsedCurrentUserFlights(JSON.parse(currentUserFlights))
       console.log('currentUserFlightsQQQQ', parsedCurrentUserFlights[0])
 
-    
+
       parsedCurrentUserFlights[0].map(m => vuelos.push(m))
-      console.log(vuelos, 'vueloe')
+      console.log(vuelos, 'VUELOS')
     } catch (e) {
       // error reading value
     }
@@ -54,10 +55,12 @@ const MyFligths = () => {
     getCurrentUserFlights()
   }
 
+  
+
   return (
     <View>
       <ScrollView>
-        <Button title='CLickme' onPress={handlePress}></Button>
+        <Button title='clickme' onPress={handlePress}></Button>
         {vuelos?.map(flight => {
           return (
             <View style={[containers.main, { borderBottomWidth: 1 }]}>
