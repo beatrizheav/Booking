@@ -120,7 +120,7 @@ export const userInformationReducer = (state = user, action) => {
               'MESSAGE',
               newStateUser[0].status
             )
-            alert(response.data.message)
+            alert("_",response.data.message)
           }
         } catch (error) {
           console.log('ERROR', error)
@@ -148,18 +148,14 @@ export const userInformationReducer = (state = user, action) => {
           if (response.data.status === 'FAILED') {
             alert(response.data.message)
           } else if (response.data.status === 'OK') {
-
             const activeUser = response.data.user
             const activeUserString = JSON.stringify(activeUser)
 
             AsyncStorage.setItem('current_user', activeUserString)
               .then(() => {
-
                 return AsyncStorage.getItem('current_user')
               })
               .then(currentUserString => {
-
-                alert('Successfully logged in')
                 navigationRef.navigate('Flights')
               })
               .catch(error => {
@@ -224,7 +220,7 @@ export const flightInformationReducer = (state = initialState, action) => {
             'https://tame-red-dugong.cyclic.app/api/users/reservations',
             reservationToCreate
           )
-        
+
           if (response.data.status) {
             alert(response.data.message)
           }
@@ -257,7 +253,7 @@ export const flightsReducer = (state = flightList, action) => {
             'https://tame-red-dugong.cyclic.app/api/users/reservations/get',
             user
           )
-    
+
           // flightsState?.map(flight=>console.log("QQQQQQQ",flight))
           flightsState.push(response.data.flights)
           if (flightsState.length) {
@@ -269,9 +265,7 @@ export const flightsReducer = (state = flightList, action) => {
                 console.log('Data successfully saved')
                 return AsyncStorage.getItem('current_user_flights')
               })
-              .then(currentUserFlights => {
-               
-              })
+              .then(currentUserFlights => {})
               .catch(error => {
                 console.error(error)
               })

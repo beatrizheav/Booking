@@ -3,7 +3,7 @@ import {
   Text,
   View,
   ScrollView,
-  Alert, Button,Linking
+  Alert, Button,Linking,Modal,ActivityIndicator 
 } from 'react-native'
 import { Formik } from 'formik'
 import Checkbox from 'expo-checkbox'
@@ -19,6 +19,7 @@ const SignUp = () => {
   const navigation = useNavigation();
   const [isChecked, setChecked] = useState(false)
   const [isChecked2, setChecked2] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   const userAttempt = useSelector(state => state.userInformation)
 
   const validate = (values) => {
@@ -47,6 +48,26 @@ const SignUp = () => {
     <View style={containers.container}>
       <ScrollView>
         <Text style={texts.title}>Sign Up</Text>
+
+        <Modal
+        animationType='slide'
+        transparent={true}
+        visible={isVisible}
+        onRequestClose={() => {
+          setIsVisible(!isVisible)
+        }}
+      >
+        <View style={containers.modal}>
+          <View style={containers.messageModal}>
+            <View style={containers.animation}>
+              <ActivityIndicator size={60} color='#5C6EF8' />
+            </View>
+            <Text style={texts.modalText}>Signing up...</Text>
+          </View>
+        </View>
+      </Modal>
+
+
         <Formik
           initialValues={{ name: '', email: '', password: '' }}
           onSubmit={values => {
@@ -57,6 +78,7 @@ const SignUp = () => {
                 user: values
               }
             })
+            setIsVisible(true)
           }}
         >
           {({ handleChange, values, errors, handleSubmit }) => (
